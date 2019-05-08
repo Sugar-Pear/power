@@ -7,7 +7,7 @@ public class Equipment {
     private String equipmentState;
     private Integer equipmentAmount;
     private Integer equipmentVoltage;
-    private Integer equipmentElectricCurrent;
+    private Integer equipmentI;
 
     public String getEquipmentNumber() {
         return equipmentNumber;
@@ -57,13 +57,14 @@ public class Equipment {
         this.equipmentVoltage = equipmentVoltage;
     }
 
-    public Integer getEquipmentElcetricCurrent() {
-        return equipmentElectricCurrent;
+    public Integer getEquipmentI() {
+        return equipmentI;
     }
 
-    public void setEquipmentElectricCurrent(Integer equipmentEletricCurrent) {
-        this.equipmentElectricCurrent = equipmentEletricCurrent;
+    public void setEquipmentI(Integer equipmentI) {
+        this.equipmentI = equipmentI;
     }
+
 
     @Override
     public String toString() {
@@ -74,7 +75,7 @@ public class Equipment {
                 ", equipmentState='" + equipmentState + '\'' +
                 ", equipmentAmount=" + equipmentAmount +
                 ", equipmentVoltage=" + equipmentVoltage +
-                ", equipmentEletricCurrent=" + equipmentElectricCurrent +
+                ", equipmentI=" + equipmentI +
                 '}';
     }
 }

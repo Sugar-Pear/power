@@ -50,7 +50,7 @@
                 , {field: 'equipmentInDate', title: '设备入库时间', align: 'center', width: 150}
                 , {field: 'equipmentAmount', title: '设备总数', align: 'center', width: 116, sort: true}
                 , {field: 'equipmentVoltage', title: '设备电压', align: 'center', width: 90}
-                , {field: 'equipmentEletricCurrent', title: '设备电流', align: 'center', width: 90}
+                , {field: 'equipmentI', title: '设备电流', align: 'center', width: 90}
                 , {fixed: 'right', width: 220, title: '操作', align: 'center', toolbar: '#barDemo'}
             ]]
         });
