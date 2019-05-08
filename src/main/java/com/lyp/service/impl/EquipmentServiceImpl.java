@@ -109,4 +109,47 @@ public class EquipmentServiceImpl implements EquipmentService {
         return equipmentDao.findEquStateByNum(equipmentNumber);
     }
 
+    @Override
+    public void showEquipmentByPageByState(HttpServletRequest request, Model model) throws Exception {
+        String pageNow = request.getParameter("pageNow");
+
+        System.out.println("-->pageNow:"+pageNow);
+
+        Page page = null;
+
+        List<Equipment> equipmentList = new ArrayList<Equipment>();
+
+        int totalCount = equipmentDao.getEquipmentCountByState();
+
+        if (pageNow != null){
+
+            page = new Page(totalCount,Integer.parseInt(pageNow));
+
+            System.out.println(page);
+
+            equipmentList = equipmentDao.selectEquipmentByPageByState(page.getStartPos(),page.getPageSize());
+
+        }else {
+            page = new Page(totalCount,1);
+        }
+
+        equipmentList = equipmentDao.selectEquipmentByPageByState(page.getStartPos(),page.getPageSize());
+
+        model.addAttribute("equipmentList",equipmentList);
+
+        model.addAttribute("page",page);
+    }
+
+    @Override
+    public List<Equipment> selectPageListByState(Pages pages) {
+
+        List<Equipment> list = equipmentDao.selectPageListByState(pages);
+        return list;
+    }
+
+    @Override
+    public Integer selectPageCountByState(Pages pages) {
+        return equipmentDao.selectPageCountByState(pages);
+    }
+
 }

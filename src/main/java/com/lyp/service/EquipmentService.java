@@ -29,5 +29,10 @@ public interface EquipmentService {
     String findEquStateByNum(String equipmentNumber);
 
     //任务分页
+    void showEquipmentByPageByState(HttpServletRequest request, Model model) throws Exception;
+    //分页数据
+    List<Equipment> selectPageListByState(Pages pages);
+    //分页数据总数
+    Integer selectPageCountByState(Pages pages);
 
 }

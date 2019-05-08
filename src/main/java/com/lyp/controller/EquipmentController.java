@@ -78,8 +78,8 @@ public class EquipmentController {
         if (equipmentService.findEquipmentByNum(equipmentNumber)!=null)
         {
             System.out.println("true");
-           if (equipmentService.findEquStateByNum(equipmentNumber).equals("0")){
-               equipmentService.updateState(equipmentNumber,"1");
+           if (equipmentService.findEquStateByNum(equipmentNumber).equals("未维修")){
+               equipmentService.updateState(equipmentNumber,"维修");
                equipmentService.sendtask(equipmentNumber,task,taskBirthDate);
                return "1";
            }else {
@@ -101,8 +101,27 @@ public class EquipmentController {
         return true;
     }
 
-
+    @RequestMapping("/tasklists")
+    public ModelAndView tL(ModelAndView m){
+        m.setViewName("tasklist");
+        return m;
+    }
 
     //任务列表
+    @RequestMapping("/tasklist")
+    @ResponseBody
+    public ResultMap<List<Equipment>> tasklist(Pages page, @RequestParam("limit") int limit) {
+        System.out.println("limit:++++"+limit);
+        page.setRows(limit);
 
+        List<Equipment> contentList = equipmentService.selectPageListByState(page);
+
+        int totals = equipmentService.selectPageCountByState(page);
+
+        page.setTotalRecord(totals);
+
+        ResultMap<List<Equipment>> equipmentResultMap = new ResultMap<List<Equipment>>(0, "", totals, contentList);
+
+        return equipmentResultMap;
+    }
 }

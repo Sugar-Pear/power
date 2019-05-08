@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 public interface EquipmentDao {
+
+    //设备列表
     @Select("select count(*) from equipment")
     int getEquipmentCount();
 
@@ -27,10 +29,10 @@ public interface EquipmentDao {
     void deleteequipmentByNum(String equipmentNumber);
 
     @Insert("insert into task(equipmentNumber,taskDes,taskBirthDate) values(#{0},#{1},#{2})")
-    void sendtask(String equipmentNumber, String task,String taskBirthDate);
+    void sendtask(String equipmentNumber, String task, String taskBirthDate);
 
     @Update("update equipment set equipmentState=#{1} where equipmentNumber=#{0}")
-    void updateState(String equipmentNumber,String state);
+    void updateState(String equipmentNumber, String state);
 
 
     @Select("select * from equipment where equipmentNumber=#{0}")
@@ -39,11 +41,16 @@ public interface EquipmentDao {
     @Select("select equipmentState from equipment where equipmentNumber=#{0}")
     String findEquStateByNum(String equipmentNumber);
 
-    @Select("select * from equipment where equipmentState='1'")
-    List<Equipment> equipmentState();
-
-
     //任务列表
+    @Select("select count(*) from equipment where equipmentState='维修'")
+    int getEquipmentCountByState();
 
+    @Select("select * from equipment where equipmentState='维修' limit #{startNow},#{pageSize}")
+    List<Equipment> selectEquipmentByPageByState(@Param(value = "startPage") Integer startPage, @Param(value = "pageSize") Integer pageSize) throws Exception;
 
+    @Select("select * from equipment where equipmentState='维修' order by equipmentNumber DESC limit #{start},#{rows}")
+    List<Equipment> selectPageListByState(Pages pages);
+
+    @Select("select count(*) from equipment where equipmentState='维修'")
+    Integer selectPageCountByState(Pages pages);
 }
