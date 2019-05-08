@@ -60,7 +60,7 @@
             console.log(obj)
         });
 
-        //监听表格复选框选择
+        //监听表格复选框选择ss
         table.on('checkbox(test)', function(obj){
             console.log(obj)
         });
