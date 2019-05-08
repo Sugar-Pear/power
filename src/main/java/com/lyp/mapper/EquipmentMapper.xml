@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lyp.mapper.EquipmentMapper" >
+    <resultMap id="BaseResultMap" type="com.lyp.model.Equipment" >
+        <result column="equipmentNumber" property="equipmentNumber" jdbcType="VARCHAR" />
+        <result column="equipmentName" property="equipmentrName" jdbcType="VARCHAR" />
+        <result column="equipmentInDate" property="equipmentInDate" jdbcType="VARCHAR" />
+        <result column="equipmentState" property="equipmentState" jdbcType="VARCHAR" />
+        <result column="equipmentAmount" property="equipmentAmount" jdbcType="INTEGER" />
+        <result column="equipmentElectricCurrent" property="equipmentElectricCurrent" jdbcType="INTEGER" />
+    </resultMap>
+</mapper>
