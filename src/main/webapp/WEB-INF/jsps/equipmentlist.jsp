@@ -46,7 +46,7 @@
             , cols: [[
                 {field: 'equipmentNumber', title: '设备编号', align: 'center', width: 160, fixed: 'left', sort: true}
                 , {field: 'equipmentName', title: '设备名称', align: 'center', width: 135, edit: 'text'}
-                , {field: 'equipmentState', title: '设备状态', align: 'center', width: 100, edit: 'text'}
+                , {field: 'equipmentState', title: '设备状态', align: 'center', width: 100}
                 , {field: 'equipmentInDate', title: '设备入库时间', align: 'center', width: 150}
                 , {field: 'equipmentAmount', title: '设备总数', align: 'center', width: 116, sort: true}
                 , {field: 'equipmentVoltage', title: '设备电压', align: 'center', width: 90}
@@ -82,7 +82,7 @@
         table.on('tool(test)', function(obj){
             var data = obj.data;
             if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
+                layer.confirm('真的删除行么',{offset:"100px"}, function(index){
                     console.log("really?:"+obj);
 console.log("data"+data.equipmentNumber);
                     $.ajax({
@@ -139,7 +139,7 @@ console.log("data"+data.equipmentNumber);
             $("#userPower").val(""+data.userPower);
 
             layer.open({
-                title:'修改管理员',
+                title:'修改设备信息',
                 type:1,
                 offset:"100px",
                 area:['400px','400px'],

@@ -68,6 +68,7 @@ public class EquipmentController {
            System.out.println("/sendtask");
            String equipmentNumber = map.get("number");
            String task = map.get("task");
+           String endDate = map.get("endDate");
            Date date = new Date();
            SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
 
@@ -80,7 +81,7 @@ public class EquipmentController {
             System.out.println("true");
            if (equipmentService.findEquStateByNum(equipmentNumber).equals("未维修")){
                equipmentService.updateState(equipmentNumber,"维修");
-               equipmentService.sendtask(equipmentNumber,task,taskBirthDate);
+               equipmentService.sendtask(equipmentNumber,task,taskBirthDate,endDate);
                return "1";
            }else {
                return "2";
@@ -124,4 +125,5 @@ public class EquipmentController {
 
         return equipmentResultMap;
     }
+
 }

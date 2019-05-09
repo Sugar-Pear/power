@@ -20,7 +20,7 @@ public interface EquipmentService {
 
     void deleteequipmentByNum(String equipmentNumber);
 
-    void sendtask(String equipmentNumber, String task,String taskBirthDate);
+    void sendtask(String equipmentNumber, String task,String taskBirthDate,String endDate);
 
     void updateState(String equipmentNumber,String state);
 

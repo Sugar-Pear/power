@@ -46,10 +46,6 @@
                 {field: 'equipmentNumber', title: '设备编号', align: 'center', width: 160, fixed: 'left', sort: true}
                 , {field: 'equipmentName', title: '设备名称', align: 'center', width: 135, edit: 'text'}
                 , {field: 'equipmentState', title: '设备状态', align: 'center', width: 100, edit: 'text'}
-                , {field: 'equipmentInDate', title: '设备入库时间', align: 'center', width: 148}
-                , {field: 'equipmentAmount', title: '设备总数', align: 'center', width: 116, sort: true}
-                , {field: 'equipmentVoltage', title: '设备电压', align: 'center', width: 90}
-                , {field: 'equipmentI', title: '设备电流', align: 'center', width: 90}
                 , {fixed: 'right', width: 220, title: '操作', align: 'center', toolbar: '#barDemo'}
             ]]
         });
@@ -108,96 +104,21 @@
                         },
                     });
                 });
-            } else if(obj.event === 'edit'){
+            } else if(obj.event === 'detail') {
                 $.ajax({
-                    url: "<%=request.getContextPath()%>/equipmentmodify",
-                    type: "POST",
-                    data:{"userNumber":data.userNumber,"userPhone":data.userPhone,"userName":data.userName,"userPower":data.userPower},
+                    url:'<%=request.getContextPath()%>/taskmessage1',
+                    type:'post',
+                    data:{"equipmentNumber":data.equipmentNumber},
                     dataType: "json",
-                    success: function(result){
-                        if(result>=1){
-                            layer.close(index);
-                            //同步更新表格和缓存对应的值
-                            obj.update({
-                                word: value
-                            });
-                            layer.msg("修改成功", {icon: 6});
-                        }else{
-                            layer.msg("修改失败", {icon: 5});
+                    success:function (res) {
+                        if (res = '1'){
+                            window.location.href="<%=request.getContextPath()%>/taskmessage2";
                         }
                     }
-                });
-                EidtUv(data,obj);
+                })
+                return false;
             }
         });
-
-        function  EidtUv(data,value,index,obj) {
-            $("#userNumber").val(data.userNumber);
-            $("#userName").val(data.userName);
-            $("#userPhone").val(data.userPhone);
-            $("#userPower").val(""+data.userPower);
-
-            layer.open({
-                title:'修改管理员',
-                type:1,
-                offset:"100px",
-                area:['400px','400px'],
-                content:$("#form1")
-            });
-
-        }
-
-
-        var $ = layui.jquery, active = {
-            getCheckData: function(){//获取选中数据
-                var checkStatus = table.checkStatus('test')
-                    ,data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-            }
-            ,getCheckLength: function(){//获取选中数目
-                var checkStatus = table.checkStatus('test')
-                    ,data = checkStatus.data;
-                layer.msg('选中了：'+ data.length + ' 个');
-            }
-            ,isAll: function(){验证是否全选
-                var checkStatus = table.checkStatus('test');
-                layer.msg(checkStatus.isAll ? '全选': '未全选')
-            }
-            ,parseTable: function(){
-                table.init('parse-table-demo', {
-                    limit: 3
-                });
-            }
-            ,add: function(){
-                table.addRow('test')
-            }
-            ,delete: function(){
-                layer.confirm('确认删除吗？', function(index){
-                    table.deleteRow('test')
-                    layer.close(index);
-                });
-            }
-            ,reload:function () {
-                var keyWord=$("#keyWord").val();
-                var keyType=$("#key_type option:selected").val();
-                table.reload('contenttable',{
-                    where:{keyWord:keyWord,keyType:keyType}
-                });
-            }
-        };
-        $('i').on('click', function(){
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
-        $('.layui-btn').on('click', function(){
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
-        $('.demoTable .layui-btn').on('click', function(){
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
-
     });
 </script>
 </html>

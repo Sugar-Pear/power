@@ -26,6 +26,12 @@
                         <input type="text" id="number" name="equipmentNumber" autocomplete="off" class="layui-input" lay-verify="required">
                     </div>
                 </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 110px;">截止日期</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="endDate" name="endDate" lay-verify="birth" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label" style="width: 110px;">任务描述</label>
                     <div class="layui-input-block">
@@ -42,9 +48,16 @@
 </div>
 </body>
 <script>
-    layui.use('form',function () {
+    layui.use(['form','laydate'],function () {
         var layer = layui.layer
             ,form = layui.form
+            ,laydate = layui.laydate
+
+
+        laydate.render({
+            elem: '#endDate'
+        });
+
         form.on('submit(send)',function (message) {
             $.ajax({
                 url:"<%=request.getContextPath()%>/sendtask",
@@ -52,7 +65,8 @@
                 contentType:'application/json; charset=utf-8',
                 data:JSON.stringify({
                     number:message.field.equipmentNumber,
-                    task:message.field.taskDes
+                    task:message.field.taskDes,
+                    endDate:message.field.endDate
                 }),
                 success:function (res) {
                     if(res == "1"){

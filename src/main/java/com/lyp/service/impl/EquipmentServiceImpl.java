@@ -90,8 +90,8 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public void sendtask(String equipmentNumber, String task,String taskBirthDate) {
-        equipmentDao.sendtask(equipmentNumber,task,taskBirthDate);
+    public void sendtask(String equipmentNumber, String task,String taskBirthDate,String endDate) {
+        equipmentDao.sendtask(equipmentNumber,task,taskBirthDate,endDate);
     }
 
     @Override

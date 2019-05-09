@@ -28,8 +28,8 @@ public interface EquipmentDao {
     @Delete("delete from equipment where equipmentNumber=#{equipmentNumber}")
     void deleteequipmentByNum(String equipmentNumber);
 
-    @Insert("insert into task(equipmentNumber,taskDes,taskBirthDate) values(#{0},#{1},#{2})")
-    void sendtask(String equipmentNumber, String task, String taskBirthDate);
+    @Insert("insert into task(equipmentNumber,taskDes,taskBirthDate) values(#{0},#{1},#{2},#{3})")
+    void sendtask(String equipmentNumber, String task, String taskBirthDate,String endDate);
 
     @Update("update equipment set equipmentState=#{1} where equipmentNumber=#{0}")
     void updateState(String equipmentNumber, String state);

@@ -71,7 +71,7 @@
             </select>
         </div>
     </div>
-
+</form>
     <div class="layui-form-item">
         <label class="layui-form-label">权限</label>
         <div class="layui-input-inline">
@@ -87,7 +87,6 @@
             <button class="layui-btn" lay-submit lay-filter="*">修改</button>
         </div>
     </div>
-</form>
 
 </body>
 <script>
