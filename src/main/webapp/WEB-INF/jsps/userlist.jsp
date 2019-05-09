@@ -52,26 +52,6 @@
             <input type="text" id="birth" name="userBirthday" lay-verify="birth" autocomplete="off" class="layui-input">
         </div>
     </div>
-
-    <div class="layui-form-item">
-        <div class="layui-form-label">地址</div>
-        <div class="layui-input-block" style="position: relative;left: -30px;">
-            <select name="userProvince" lay-filter="province" id="myprovince">
-                <option></option>
-            </select>
-        </div><br>
-        <div class="layui-input-block" style="position: relative;left: -30px;">
-            <select name="userCity" lay-filter="city" id="mycity">
-                <option></option>
-            </select>
-        </div><br>
-        <div class="layui-input-block" style="position: relative;left: -30px;">
-            <select name="userArea" lay-filter="area" id="myarea">
-                <option></option>
-            </select>
-        </div>
-    </div>
-</form>
     <div class="layui-form-item">
         <label class="layui-form-label">权限</label>
         <div class="layui-input-inline">
@@ -87,6 +67,8 @@
             <button class="layui-btn" lay-submit lay-filter="*">修改</button>
         </div>
     </div>
+</form>
+
 
 </body>
 <script>
@@ -199,7 +181,6 @@
                 $("#phone").val(data.userPhone);
                 $("#utype").val(data.userType);
                 $("#birth").val(data.userBirthday);
-                $("#myprovince").val(data.province);
                 form.render();
                 form.on("submit(*)",function (message) {
                     $.ajax({
@@ -211,8 +192,7 @@
                             name:message.field.userName,
                             phone:message.field.userPhone,
                             birth:message.field.userBirthday,
-                            utype:message.field.userType,
-                            myprovince:message.file.province
+                            utype:message.field.userType
                         }),
                         success:function (returnCode) {
 

@@ -181,7 +181,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/modify",method=RequestMethod.POST)
-    public  String modiSens(@RequestBody HashMap<String,String> map1, HttpServletRequest request) {
+    public  String modiSens(@RequestBody HashMap<String,String> map1) {
         String userNumber = map1.get("number");
         String userName = map1.get("name");
         String userPhone = map1.get("phone");
