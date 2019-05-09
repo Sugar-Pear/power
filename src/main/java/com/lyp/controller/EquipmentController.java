@@ -51,7 +51,7 @@ public class EquipmentController {
     }
 
 
-    //设备任务
+    //跳转任务界面
     @RequestMapping(value = "/saytask")
     public ModelAndView saytask(ModelAndView modelAndView){
         System.out.println("/saytask");
@@ -59,7 +59,7 @@ public class EquipmentController {
         return modelAndView;
     }
 
-
+    //发布任务
     @ResponseBody
     @RequestMapping(value = "/sendtask",method = RequestMethod.POST)
     public String  sendtask(@RequestBody Map<String ,String> map ){
@@ -80,10 +80,13 @@ public class EquipmentController {
         {
             System.out.println("true");
            if (equipmentService.findEquStateByNum(equipmentNumber).equals("未维修")){
-               equipmentService.updateState(equipmentNumber,"维修");
+               equipmentService.updateState(equipmentNumber,"等待维修");
                equipmentService.sendtask(equipmentNumber,task,taskBirthDate,endDate);
                return "1";
-           }else {
+           }else if (equipmentService.findEquStateByNum(equipmentNumber).equals("等待维修")){
+               return "3";
+           }
+           else {
                return "2";
            }
        }else {

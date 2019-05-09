@@ -17,4 +17,9 @@ public class TaskServiceImpl implements TaskService {
     public Task selectTaskByNum(String equipmentNuber) {
         return taskDao.selectTaskByNum(equipmentNuber);
     }
+
+    @Override
+    public void addTask(String equipmentNumber, String userNumber,String taskAcceptDate) {
+        taskDao.addTask(equipmentNumber,userNumber,taskAcceptDate);
+    }
 }

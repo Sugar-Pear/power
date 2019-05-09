@@ -2,15 +2,17 @@ package com.lyp.controller;
 
 
 import com.lyp.model.Task;
+import com.lyp.model.User;
 import com.lyp.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 
 @Controller
 public class TaskController {
@@ -38,5 +40,31 @@ public class TaskController {
         Task task = (Task) request.getSession().getAttribute("task");
         System.out.println("task：：：：：：：：：：：：："+task);
         return "taskmessage";
+    }
+
+    //接收任务
+    @ResponseBody
+    @RequestMapping(value = "/acceptTask",method = RequestMethod.POST)
+    public String acceptTask(HttpServletRequest httpServletRequest,@RequestBody Map map){
+
+        String equipmentNumber = (String) map.get("number");
+
+        System.out.println("dadadadadadadadadad"+equipmentNumber);
+
+        User user= (User) httpServletRequest.getSession().getAttribute("user");
+
+        String userNumber = user.getUserNumber();
+
+        String taskAcceptDate;
+
+        Date date = new Date();
+
+        SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
+
+        taskAcceptDate = simpleFormat.format(date);
+
+        taskService.addTask(equipmentNumber,userNumber,taskAcceptDate);
+
+        return "1";
     }
 }

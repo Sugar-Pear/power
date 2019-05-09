@@ -29,7 +29,7 @@
 
 </head>
 
-<body data-type="index" style="height: 710px;">
+<body  style="height: 710px;">
 <script src="js/theme.js"></script>
 <div class="am-g tpl-g">
     <!-- 头部 -->

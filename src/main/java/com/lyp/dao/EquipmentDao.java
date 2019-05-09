@@ -15,7 +15,7 @@ public interface EquipmentDao {
     @Select("select * from equipment limit #{startNow},#{pageSize}")
     List<Equipment> selectEquipmentByPage(@Param(value = "startPage") Integer startPage, @Param(value = "pageSize") Integer pageSize) throws Exception;
 
-    @Select("select * from equipment order by equipmentNumber DESC limit #{start},#{rows}")
+    @Select("select * from equipment order by equipmentNumber ASC limit #{start},#{rows}")
     List<Equipment> selectPageList(Pages pages);
 
     @Select("select count(*) from equipment")
@@ -25,15 +25,12 @@ public interface EquipmentDao {
             "values(#{equipmentNumber},#{equipmentName},#{equipmentAmount},#{equipmentInDate},#{equipmentState},#{equipmentVoltage},#{equipmentElectricCurrent})")
     void addEquipment(Equipment equipment);
 
-    @Delete("delete from equipment where equipmentNumber=#{equipmentNumber}")
-    void deleteequipmentByNum(String equipmentNumber);
-
-    @Insert("insert into task(equipmentNumber,taskDes,taskBirthDate) values(#{0},#{1},#{2},#{3})")
+    //添加任务
+    @Insert("insert into task(equipmentNumber,taskDes,taskBirthDate,taskEndDate) values(#{0},#{1},#{2},#{3})")
     void sendtask(String equipmentNumber, String task, String taskBirthDate,String endDate);
 
     @Update("update equipment set equipmentState=#{1} where equipmentNumber=#{0}")
     void updateState(String equipmentNumber, String state);
-
 
     @Select("select * from equipment where equipmentNumber=#{0}")
     Equipment findEquipmentByNum(String equipmentNumber);
@@ -42,15 +39,27 @@ public interface EquipmentDao {
     String findEquStateByNum(String equipmentNumber);
 
     //任务列表
-    @Select("select count(*) from equipment where equipmentState='维修'")
+    @Select("select count(*) from equipment where equipmentState='等待维修'")
     int getEquipmentCountByState();
 
-    @Select("select * from equipment where equipmentState='维修' limit #{startNow},#{pageSize}")
+    @Select("select * from equipment where equipmentState='等待维修' limit #{startNow},#{pageSize}")
     List<Equipment> selectEquipmentByPageByState(@Param(value = "startPage") Integer startPage, @Param(value = "pageSize") Integer pageSize) throws Exception;
 
-    @Select("select * from equipment where equipmentState='维修' order by equipmentNumber DESC limit #{start},#{rows}")
+    @Select("select * from equipment where equipmentState='等待维修' order by equipmentNumber ASC limit #{start},#{rows}")
     List<Equipment> selectPageListByState(Pages pages);
 
-    @Select("select count(*) from equipment where equipmentState='维修'")
+    @Select("select count(*) from equipment where equipmentState='等待维修'")
     Integer selectPageCountByState(Pages pages);
+
+    //删除设备
+    @Delete("delete from equipment where equipmentNumber=#{equipmentNumber}")
+    void deleteequipmentByNum(String equipmentNumber);
+
+    //删除任务列表
+    @Delete("delete from task where equipmentNumber=#{equipmentNumber}")
+    void deleteTask(String equipmentNumber);
+
+    //删除用户接受的任务
+    @Delete("delete from usertask where equipmentNumber=#{equipmentNumber}")
+    void deleteUserTask(String equipmentNumber);
 }

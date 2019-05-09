@@ -71,15 +71,22 @@
                 success:function (res) {
                     if(res == "1"){
                         setTimeout(function () {
-                            layer.msg("发布成功，请到任务列表查看")
+                            layer.msg("发布成功，请到任务列表查看");
                             form.render();
                         },1000)
                         }else if(res=="0"){
                             layer.msg("设备不存在，请重新发布");
+                            form.render();
                         }else if (res=="2") {
                         layer.msg("设备维修中。。。");
-                    }else {
+                        form.render();
+                    }else if (res="3"){
+                        layer.msg("设备等待维修中。。。");
+                        form.render();
+                    }
+                    else {
                         layer.msg("发布失败，请重新发布");
+                        form.render();
                     }
                 }
             });

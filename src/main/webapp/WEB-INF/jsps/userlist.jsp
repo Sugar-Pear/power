@@ -170,7 +170,7 @@
                 });
             } else if(obj.event === 'edit') {
                 layer.open({
-                    title:'修改管理员',
+                    title:'修改人员信息',
                     type:1,
                     offset:"100px",
                     area:['400px','555px'],

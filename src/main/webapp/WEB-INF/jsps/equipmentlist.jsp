@@ -19,6 +19,34 @@
         </script>
     </div>
 </div>
+
+<%--设备信息弹窗--%>
+<form class="layui-form layui-form-pane1" id="form1" name="form1" style="" action="<%=request.getContextPath()%>/modify"  method="post" lay-filter="first1">
+    <br>
+    <div class="layui-form-item">
+        <label class="layui-form-label">设备编号</label>
+        <div class="layui-input-inline">
+            <input  type="text" name="equipmentNumber" id="number" lay-verify="required|number" autocomplete="off" class="layui-input" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">设备名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="equipmentName" id="name" lay-verify="required|name" autocomplete="off" class="layui-input" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">设备总数</label>
+        <div class="layui-input-inline">
+            <input type="text" name="equipmentCount" id="count" lay-verify="required|number" lay-verType="tips" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="*">修改</button>
+        </div>
+    </div>
+</form>
 </body>
 <script>
     layui.use(['layer', 'table', 'element', 'form'], function() {
@@ -110,95 +138,50 @@ console.log("data"+data.equipmentNumber);
                     });
                 });
             } else if(obj.event === 'edit'){
-                $.ajax({
-                    url: "<%=request.getContextPath()%>/equipmentmodify",
-                    type: "POST",
-                    data:{"userNumber":data.userNumber,"userPhone":data.userPhone,"userName":data.userName,"userPower":data.userPower},
-                    dataType: "json",
-                    success: function(result){
-                        if(result>=1){
-                            layer.close(index);
-                            //同步更新表格和缓存对应的值
-                            obj.update({
-                                word: value
-                            });
-                            layer.msg("修改成功", {icon: 6});
-                        }else{
-                            layer.msg("修改失败", {icon: 5});
+                layer.open({
+                    title:'修改设备信息',
+                    type:1,
+                    offset:"100px",
+                    area:['400px','555px'],
+                    content:$("#form1")
+                });
+                $("#number").val(data.equipmentNumber);
+                $("#name").val(data.equipmentName);
+                $("#count").val(data.equipmentCount);
+                form.render();
+                form.on("submit(*)",function (message) {
+                    $.ajax({
+                        url:'<%=request.getContextPath()%>/equipmentmodify',
+                        method:'POST',
+                        contentType:'application/json; charset=utf-8',
+                        data:JSON.stringify({
+                            number:message.field.equipmentNumber,
+                            count:message.field.equipmentCount
+                        }),
+                        success:function (returnCode) {
+
+                            if(returnCode == '1'){
+                                layer.closeAll("loading");
+                                layer.load(2);
+                                layer.msg("修改成功", {icon: 6});
+
+                                setTimeout(function () {
+                                    obj.update({
+                                        count:data.equipmentCount
+                                    });//修改成功修改表格数据不进行跳转
+                                    location.reload();//刷新页面
+                                    /* layer.closeAll();//关闭所有的弹出层*/
+                                },1000);
+                                //form.render();
+                            }else {
+                                layer.msg("修改失败", {icon: 5});
+                            }
                         }
-                    }
-                });
-                EidtUv(data,obj);
-            }
-        });
-
-        function  EidtUv(data,value,index,obj) {
-            $("#userNumber").val(data.userNumber);
-            $("#userName").val(data.userName);
-            $("#userPhone").val(data.userPhone);
-            $("#userPower").val(""+data.userPower);
-
-            layer.open({
-                title:'修改设备信息',
-                type:1,
-                offset:"100px",
-                area:['400px','400px'],
-                content:$("#form1")
-            });
-
-        }
-
-
-        var $ = layui.jquery, active = {
-            getCheckData: function(){//获取选中数据
-                var checkStatus = table.checkStatus('test')
-                    ,data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-            }
-            ,getCheckLength: function(){//获取选中数目
-                var checkStatus = table.checkStatus('test')
-                    ,data = checkStatus.data;
-                layer.msg('选中了：'+ data.length + ' 个');
-            }
-            ,isAll: function(){验证是否全选
-                var checkStatus = table.checkStatus('test');
-                layer.msg(checkStatus.isAll ? '全选': '未全选')
-            }
-            ,parseTable: function(){
-                table.init('parse-table-demo', {
-                    limit: 3
+                    })
+                    return false;//阻止表单跳转  true：表单跳转
                 });
             }
-            ,add: function(){
-                table.addRow('test')
-            }
-            ,delete: function(){
-                layer.confirm('确认删除吗？', function(index){
-                    table.deleteRow('test')
-                    layer.close(index);
-                });
-            }
-            ,reload:function () {
-                var keyWord=$("#keyWord").val();
-                var keyType=$("#key_type option:selected").val();
-                table.reload('contenttable',{
-                    where:{keyWord:keyWord,keyType:keyType}
-                });
-            }
-        };
-        $('i').on('click', function(){
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
         });
-        $('.layui-btn').on('click', function(){
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
-        $('.demoTable .layui-btn').on('click', function(){
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
-
     });
 </script>
 </html>

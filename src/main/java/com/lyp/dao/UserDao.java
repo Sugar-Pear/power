@@ -28,7 +28,7 @@ public interface UserDao {
     @Select("select * from user limit #{startNow},#{pageSize}")
     List<User> selectUserByPage(@Param(value = "startPage") Integer startPage, @Param(value = "pageSize") Integer pageSize) throws Exception;
 
-    @Select("select * from user order by userNumber DESC limit #{start},#{rows}")
+    @Select("select * from user order by userNumber ASC limit #{start},#{rows}")
     List<User> selectPageList(Pages page);
 
     @Select("select count(*) from user")
