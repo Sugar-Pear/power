@@ -89,7 +89,7 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 86px;">设备入库日期</label>
+        <label class="layui-form-label" style="width: 86px;">入库日期</label>
         <div class="layui-input-inline">
             <input  type="text" name="equipmentInDate" id="indate" lay-verify="required" autocomplete="off" class="layui-input">
         </div>

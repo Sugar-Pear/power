@@ -71,7 +71,12 @@
                 success:function (res) {
                     if(res == "1"){
                         setTimeout(function () {
-                            layer.msg("发布成功，请到任务列表查看");
+
+                            setTimeout(function () {
+                                window.location.href="<%=request.getContextPath()%>/tasklists";
+                            },1000)
+
+                            layer.msg("发布成功，正在跳转至任务列表");
                             form.render();
                         },1000)
                         }else if(res=="0"){

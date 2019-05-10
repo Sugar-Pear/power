@@ -40,19 +40,16 @@
         </div>
         <!-- 右侧内容 -->
         <div class="tpl-header-fluid">
-            <!-- 搜索 -->
-            <div class="am-fl tpl-header-search">
-                <form class="tpl-header-search-form" action="javascript:;">
-                    <button class="tpl-header-search-btn am-icon-search"></button>
-                    <input class="tpl-header-search-box" type="text" placeholder="搜索内容...">
-                </form>
-            </div>
             <!-- 其它功能-->
             <div class="am-fr tpl-header-navbar">
-                <ul>
+                <li>
+                    <%--任务中心--%>
+                    <li class="layui-nav-item" <c:if test="${user.userType eq '管理员'}">hidden</c:if>>
+                            <a href="">任务中心<span class="layui-badge-dot"></span></a>
+                        </li>
                     <!-- 欢迎语 -->
                     <li class="am-text-sm tpl-header-navbar-welcome">
-                        <a href="javascript:;">欢迎你, <span>${user.userName}</span> </a>
+                        <a>欢迎你, <span>${user.userName}</span></a>
                     </li>
                         <!-- 退出 -->
                     <li class="am-text-sm">

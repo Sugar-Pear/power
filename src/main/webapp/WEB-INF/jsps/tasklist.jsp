@@ -43,10 +43,12 @@
             , id: 'contenttable'
             , toolbar: '#toolbarDemo'
             , cols: [[
-                {field: 'equipmentNumber', title: '设备编号', align: 'center', width: 160, fixed: 'left', sort: true}
-                , {field: 'equipmentName', title: '设备名称', align: 'center', width: 135, edit: 'text'}
-                , {field: 'equipmentState', title: '设备状态', align: 'center', width: 100, edit: 'text'}
-                , {fixed: 'right', width: 220, title: '操作', align: 'center', toolbar: '#barDemo'}
+                {field: 'equipmentNumber', title: '设备编号', align: 'center', width: 193, fixed: 'left', sort: true}
+                , {field: 'equipmentName', title: '设备名称', align: 'center', width: 181}
+                , {field: 'equipmentState', title: '设备状态', align: 'center', width: 165}
+                , {field:'equipmentVoltage', title:'电压',align:'center',width:150}
+                , {field:'equipmentI', title:'电流',align:'center',width:154}
+                , {fixed: 'right', width: 217, title: '操作', align: 'center', toolbar: '#barDemo'}
             ]]
         });
 

@@ -28,13 +28,13 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label" style="width: 110px;">截止时间</label>
                     <div class="layui-input-inline">
-                        <input type="text" value="${task.taskEndDate}" id="taskEndDate" name="taskEndDate" autocomplete="off" class="layui-input" lay-verify="required">
+                        <input type="text" value="${task.taskEndDate}" id="taskEndDate" name="taskEndDate" autocomplete="off" class="layui-input" lay-verify="required" readonly>
                     </div>
                 </div>
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label" style="width: 110px;">任务描述</label>
                     <div class="layui-input-block">
-                        <textarea aria-valuenow="${task.taskDes}" id="task" name="taskDes" class="layui-textarea"></textarea>
+                        <textarea id="task" name="taskDes" class="layui-textarea" readonly>${task.taskDes}</textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
