@@ -112,7 +112,9 @@
     layui.use([ 'form' ], function() {
         var form = layui.form, layer = layui.layer;
         //添加设备
+        alert("1");
         form.on('submit(add)', function (message) {
+            alert("2");
             $, ajax({
                 url: '<%=request.getContextPath()%>/addEq',
                 type: 'post',
