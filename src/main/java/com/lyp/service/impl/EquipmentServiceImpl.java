@@ -152,4 +152,19 @@ public class EquipmentServiceImpl implements EquipmentService {
         return equipmentDao.selectPageCountByState(pages);
     }
 
+    @Override
+    public void deleteTask(String equipmentNumber) {
+        equipmentDao.deleteTask(equipmentNumber);
+    }
+
+    @Override
+    public void deleteUserTask(String equipmentNumber) {
+        equipmentDao.deleteUserTask(equipmentNumber);
+    }
+
+    @Override
+    public void updateEquipmentCount(int equipmentAmount, String equipmentNumber) {
+        equipmentDao.updateEquipmentCount(equipmentAmount,equipmentNumber);
+    }
+
 }

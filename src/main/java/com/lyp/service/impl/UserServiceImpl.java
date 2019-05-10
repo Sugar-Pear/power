@@ -99,4 +99,9 @@ public class UserServiceImpl implements UserService {
         userDao.addHeaderImage(descPath,userNumber);
     }
 
+    @Override
+    public boolean addUser(User user) {
+        return userDao.addUser(user);
+    }
+
 }

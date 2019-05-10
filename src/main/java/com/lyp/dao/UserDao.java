@@ -40,5 +40,8 @@ public interface UserDao {
     @Update("update user set userImg=#{0} where userNumber=#{1}")
     void addHeaderImage(String descPath, String userNumber);
 
+    //添加用户
+    @Insert("insert into user(userNumber,userName,userPassword,userType,userBirthday,userPhone,userImg,userProvince,userCity,userArea) values(#{userNumber},#{userName},#{userPassword},#{userType},#{userBirthday},#{userPhone},#{userImg},#{userProvince},#{userCity},#{userArea})")
+    boolean addUser(User user);
 }
 

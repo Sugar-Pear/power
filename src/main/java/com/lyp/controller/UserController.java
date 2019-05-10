@@ -139,14 +139,16 @@ public class UserController {
             list.add(".jpeg");
             list.add(".gif");
             if(list.contains(extName.toLowerCase())){
+                User user =(User) request.getSession().getAttribute("user");
                 String realPath =  "D:\\studysoft\\ideaproject\\power\\src\\main\\webapp\\images\\users";
-                String photoFileName = new Date().getTime()+extName;
+                String photoFileName = user.getUserNumber()+extName;
                 String descPath = realPath + "\\" + photoFileName;
                 System.out.println(descPath);
-                User user =(User) request.getSession().getAttribute("user");
                 System.out.println(user.getUserNumber());
                 userService.addHeaderImage(photoFileName,user.getUserNumber());
                 file.transferTo(new File(realPath,photoFileName));
+                User user1 = userService.getuserByNum(user.getUserNumber());;
+                request.getSession().setAttribute("user",user1);
                 return 1;//成功
             }else {
                 return -1;//文件类型不正确
@@ -206,5 +208,49 @@ public class UserController {
         //删除
         userService.deleteByuserNumber(userNumber);
         return true;
+    }
+
+    //添加用户
+    @RequestMapping(value = "/adduser",method = RequestMethod.POST)
+    public String addUser(@RequestParam(value = "userNumber") String userNumber,
+                          @RequestParam(value = "userName") String userName,
+                          @RequestParam(value = "userType") String userType,
+                          @RequestParam(value = "userBirthday") String userBirthday,
+                          @RequestParam(value = "userPhone") String userPhone,
+                          @RequestParam(value = "province") String userProvince,
+                          @RequestParam(value = "city") String userCity,
+                          @RequestParam(value = "area") String userArea){
+
+        String userPassword = "12";
+
+        String userImg = "user01.png";
+
+        User user = new User();
+
+        user.setUserNumber(userNumber);
+
+        user.setUserName(userName);
+
+        user.setUserBirthday(userBirthday);
+
+        user.setUserType(userType);
+
+        user.setUserProvince(userProvince);
+
+        user.setUserCity(userCity);
+
+        user.setUserArea(userArea);
+
+        user.setUserImg(userImg);
+
+        user.setUserPhone(userPhone);
+
+        user.setUserPassword(userPassword);
+
+        System.out.println("hdakshdakhsdkahUUUUSSSSEEERRR"+user);
+
+        userService.addUser(user);
+
+        return "userlist";
     }
 }

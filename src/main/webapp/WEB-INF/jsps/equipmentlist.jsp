@@ -10,49 +10,147 @@
 <body>
 <%@include file="header.jsp"%>
 <div class="tpl-content-wrapper">
-    <div class="row-content am-cf">
+    <div style="position: absolute;top: 10px;left: 22px;height: 25px;width: 162px;">
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="addEquipment()">添加设备</button>
+        <script>
+            function addEquipment(){
+                layer.open({
+                    title:'添加设备',
+                    type:1,
+                    offset:"100px",
+                    area:['400px','500px'],
+                    content:$("#addequipment")
+                });
+            }
+        </script>
+    </div>
+    <div class="row-content am-cf" style="position: relative;top: 25px;">
         <table id="test" lay-filter="test"></table>
         <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
     </div>
 </div>
 
+<%--添加设备--%>
+<form class="layui-form layui-form-pane1" id="addequipment" name="addequipment">
+    <br>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 86px;">设备编号</label>
+        <div class="layui-input-inline">
+            <input  type="text" name="equipmentNumber" id="number1" lay-verify="required|number" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 86px;">设备名称</label>
+        <div class="layui-input-inline">
+            <input  type="text" name="equipmentName" id="name1" lay-verify="required|number" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 86px;">设备数量</label>
+        <div class="layui-input-inline">
+            <input  type="text" name="equipmentAmount" id="amount1" lay-verify="required|number" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 86px;">设备入库日期</label>
+        <div class="layui-input-inline">
+            <input  type="text" name="equipmentInDate" id="indate" lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 86px;">设备电压</label>
+        <div class="layui-input-inline">
+            <input  type="text" name="equipmentVoltage" id="voltage" lay-verify="required|number" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 86px;">设备电流</label>
+        <div class="layui-input-inline">
+            <input  type="text" name="equipmentI" id="i" lay-verify="required|number" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="add">确认添加</button>
+        </div>
+    </div>
+</form>
+
+
 <%--设备信息弹窗--%>
 <form class="layui-form layui-form-pane1" id="form1" name="form1" style="" action="<%=request.getContextPath()%>/modify"  method="post" lay-filter="first1">
     <br>
     <div class="layui-form-item">
-        <label class="layui-form-label">设备编号</label>
+        <label class="layui-form-label" style="width: 86px;">设备编号</label>
         <div class="layui-input-inline">
             <input  type="text" name="equipmentNumber" id="number" lay-verify="required|number" autocomplete="off" class="layui-input" readonly>
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">设备名称</label>
+        <label class="layui-form-label" style="width: 86px;">设备名称</label>
         <div class="layui-input-inline">
             <input type="text" name="equipmentName" id="name" lay-verify="required|name" autocomplete="off" class="layui-input" readonly>
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">设备总数</label>
+        <label class="layui-form-label" style="width: 86px;">设备总数</label>
         <div class="layui-input-inline">
-            <input type="text" name="equipmentCount" id="count" lay-verify="required|number" lay-verType="tips" autocomplete="off" class="layui-input">
+            <input type="text" name="equipmentAmount" id="amount" lay-verify="required" lay-verType="tips" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="*">修改</button>
+            <button class="layui-btn" lay-submit lay-filter="eqMo">修改</button>
         </div>
     </div>
 </form>
 </body>
 <script>
-    layui.use(['layer', 'table', 'element', 'form'], function() {
+    layui.use([ 'form' ], function() {
+        var form = layui.form, layer = layui.layer;
+        //添加设备
+        form.on('submit(add)', function (message) {
+            $, ajax({
+                url: '<%=request.getContextPath()%>/addEq',
+                type: 'post',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    number: message.field.equipmentNumber,
+                    name: message.field.equipmentName,
+                    amount: message.field.equipmentAmount,
+                    indate: message.field.equipmentInDate,
+                    v: message.field.equipmentVoltage,
+                    i: message.field.equipmentI
+
+                }),
+                success: function (res) {
+                    if (res = "1") {
+                        layer.closeAll("loading");
+                        layer.load(2);
+                        layer.msg("添加成功", {icon: 6});
+                    } else {
+                        layer.msg("添加失败");
+                    }
+                }
+            })
+            return false;
+        });
+    });
+
+
+
+
+    layui.use(['layer', 'table', 'laydate','element', 'form'], function() {
         var layer = layui.layer
             , form = layui.form
+            ,laydate = layui.laydate
             , table = layui.table;
+        laydate.render({
+            elem:'#indate'
+        });
 
         //渲染
         table.render({
@@ -112,7 +210,7 @@
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么',{offset:"100px"}, function(index){
                     console.log("really?:"+obj);
-console.log("data"+data.equipmentNumber);
+                    console.log("data"+data.equipmentNumber);
                     $.ajax({
                         url: "<%=request.getContextPath()%>/equipmentdelete",
                         type: "POST",
@@ -141,44 +239,41 @@ console.log("data"+data.equipmentNumber);
                 layer.open({
                     title:'修改设备信息',
                     type:1,
-                    offset:"100px",
-                    area:['400px','555px'],
+                    offset:"30px",
+                    area:['400px','500px'],
                     content:$("#form1")
                 });
                 $("#number").val(data.equipmentNumber);
                 $("#name").val(data.equipmentName);
-                $("#count").val(data.equipmentCount);
-                form.render();
-                form.on("submit(*)",function (message) {
+                $("#amount").val(data.equipmentAmount);
+          //      form.render();
+                form.on("submit(eqMo)",function (message) {
                     $.ajax({
                         url:'<%=request.getContextPath()%>/equipmentmodify',
                         method:'POST',
                         contentType:'application/json; charset=utf-8',
                         data:JSON.stringify({
                             number:message.field.equipmentNumber,
-                            count:message.field.equipmentCount
+                            amount:message.field.equipmentAmount
                         }),
                         success:function (returnCode) {
-
-                            if(returnCode == '1'){
-                                layer.closeAll("loading");
-                                layer.load(2);
-                                layer.msg("修改成功", {icon: 6});
+                            if(returnCode == "1"){
 
                                 setTimeout(function () {
-                                    obj.update({
-                                        count:data.equipmentCount
-                                    });//修改成功修改表格数据不进行跳转
-                                    location.reload();//刷新页面
-                                    /* layer.closeAll();//关闭所有的弹出层*/
+                                    console.log("修改成功");
+                                    layer.msg("修改成功");
+                                    alert("修改成功");
+                                     form.render();
                                 },1000);
-                                //form.render();
+
+                                //layer.msg("修改成功");
                             }else {
+                                console.log("修改mei成功");
                                 layer.msg("修改失败", {icon: 5});
                             }
                         }
-                    })
-                    return false;//阻止表单跳转  true：表单跳转
+                    });
+                     return false;//阻止表单跳转  true：表单跳转
                 });
             }
         });

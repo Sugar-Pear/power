@@ -29,4 +29,5 @@ public interface UserService {
 
     void addHeaderImage(String descPath, String userNumber);
 
+    boolean addUser(User user);
 }

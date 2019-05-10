@@ -81,7 +81,7 @@
                     console.log("really?:"+obj);
                     console.log("data"+data.equipmentNumber);
                     $.ajax({
-                        url: "<%=request.getContextPath()%>/equipmentdelete",
+                        url: "<%=request.getContextPath()%>/taskdelete",
                         type: "POST",
                         data:{"equipmentNumber":data.equipmentNumber},
                         dataType: "json",

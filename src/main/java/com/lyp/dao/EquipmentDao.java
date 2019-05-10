@@ -21,8 +21,8 @@ public interface EquipmentDao {
     @Select("select count(*) from equipment")
     Integer selectPageCount(Pages pages);
 
-    @Insert("insert into equipment(equipmentNumber,equipmentName,equipmentAmount,equipmentInDate,equipmentState,equipmentState,equipmentVoltage,equipmentElectricCurrent) " +
-            "values(#{equipmentNumber},#{equipmentName},#{equipmentAmount},#{equipmentInDate},#{equipmentState},#{equipmentVoltage},#{equipmentElectricCurrent})")
+    @Insert("insert into equipment(equipmentNumber,equipmentName,equipmentAmount,equipmentInDate,equipmentState,equipmentVoltage,equipmentI) " +
+            "values(#{equipmentNumber},#{equipmentName},#{equipmentAmount},#{equipmentInDate},#{equipmentState},#{equipmentVoltage},#{equipmentI})")
     void addEquipment(Equipment equipment);
 
     //添加任务
@@ -62,4 +62,8 @@ public interface EquipmentDao {
     //删除用户接受的任务
     @Delete("delete from usertask where equipmentNumber=#{equipmentNumber}")
     void deleteUserTask(String equipmentNumber);
+
+    //修改设备数量
+    @Update("update equipment set equipmentAmount=#{0} where equipmentNumber=#{1}")
+    void updateEquipmentCount(int equipmentAmount,String equipmentNumber);
 }

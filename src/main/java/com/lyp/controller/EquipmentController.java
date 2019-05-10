@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.SimpleFormatter;
@@ -79,7 +80,7 @@ public class EquipmentController {
         if (equipmentService.findEquipmentByNum(equipmentNumber)!=null)
         {
             System.out.println("true");
-           if (equipmentService.findEquStateByNum(equipmentNumber).equals("未维修")){
+           if (equipmentService.findEquStateByNum(equipmentNumber).equals("良好")){
                equipmentService.updateState(equipmentNumber,"等待维修");
                equipmentService.sendtask(equipmentNumber,task,taskBirthDate,endDate);
                return "1";
@@ -102,14 +103,37 @@ public class EquipmentController {
         System.out.println("userNumber====" + equipmentNumber);
         //删除
         equipmentService.deleteequipmentByNum(equipmentNumber);
+        equipmentService.deleteTask(equipmentNumber);
         return true;
     }
 
+    //编辑设备
+    @ResponseBody
+    @RequestMapping(value = "/equipmentmodify",method = RequestMethod.POST)
+    public String equipmentmodify(@RequestBody Map<String,Object> map){
+
+        String equipmentNumber = (String) map.get("number");
+
+        String equipmentCount = (String) map.get("amount");
+
+        int equipmentCount1 =  Integer.parseInt(equipmentCount);
+
+        System.out.println("equipdadadadadadad"+equipmentNumber);
+
+        equipmentService.updateEquipmentCount(equipmentCount1,equipmentNumber);
+
+        return "1";
+    }
+
+
+
+    //跳转任务列表
     @RequestMapping("/tasklists")
     public ModelAndView tL(ModelAndView m){
         m.setViewName("tasklist");
         return m;
     }
+
 
     //任务列表
     @RequestMapping("/tasklist")
@@ -127,6 +151,45 @@ public class EquipmentController {
         ResultMap<List<Equipment>> equipmentResultMap = new ResultMap<List<Equipment>>(0, "", totals, contentList);
 
         return equipmentResultMap;
+    }
+
+    //添加设备
+    @ResponseBody
+    @RequestMapping(value = "/addEq",method = RequestMethod.POST)
+    public String addequipment(@RequestBody Map<String,Object> map){
+
+        String equipmentNumber = (String) map.get("number");
+
+        String equipmentName = (String) map.get("name");
+
+        String amount1 = (String) map.get("amount");
+        Integer equipmentAmount = Integer.parseInt(amount1);
+
+        String equipmentInDate = (String) map.get("indate");
+
+        String equipmentVoltage1 = (String) map.get("v");
+        Integer equipmentVoltage = Integer.parseInt(equipmentVoltage1);
+
+        String equipmentI1 = (String) map.get("i");
+        Integer equipmentI = Integer.parseInt(equipmentI1);
+
+        String equipmentState = "良好";
+
+        Equipment equipment = new Equipment();
+
+        equipment.setEquipmentNumber(equipmentNumber);
+        equipment.setEquipmentName(equipmentName);
+        equipment.setEquipmentAmount(equipmentAmount);
+        equipment.setEquipmentInDate(equipmentInDate);
+        equipment.setEquipmentState(equipmentState);
+        equipment.setEquipmentVoltage(equipmentVoltage);
+        equipment.setEquipmentI(equipmentI);
+
+        System.out.println("EEEQQQ"+equipment);
+
+        equipmentService.addequipment(equipment);
+
+        return "1";
     }
 
 }

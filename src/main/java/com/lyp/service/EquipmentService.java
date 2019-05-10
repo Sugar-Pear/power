@@ -35,4 +35,13 @@ public interface EquipmentService {
     //分页数据总数
     Integer selectPageCountByState(Pages pages);
 
+    //删除任务
+    void deleteTask(String equipmentNumber);
+
+    //删除用户接收任务
+    void deleteUserTask(String equipmentNumber);
+
+    //修改设备数量
+    void updateEquipmentCount(int equipmentAmount,String equipmentNumber);
+
 }

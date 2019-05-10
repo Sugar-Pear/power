@@ -124,11 +124,12 @@
             }
             , done: function (res) {
                 //如果上传失败
-                if (res.code > 0) {
+                if (res <= 0) {
                     return layer.msg('上传失败');
                 }
                 //上传成功
                 layer.msg('上传成功');
+                location.reload()
             }
             , error: function () {
                 //演示失败状态，并实现重传
