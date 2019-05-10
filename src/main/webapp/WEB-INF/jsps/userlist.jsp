@@ -23,6 +23,43 @@
                     content:$("#adduser")
                 });
             }
+            layui.use('form',function () {
+                var form1 = layui.form,
+                    layer = layui.layer;
+                form1.on('submit(adduser)',function (message) {
+                    $.ajax({
+                        url: '<%=request.getContextPath()%>/adduser1',
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({
+                            number: message.field.userNumber,
+                            name: message.field.userName,
+                            type: message.field.userType,
+                            birth: message.field.userBirthday,
+                            phone: message.field.userPhone,
+                            province: message.field.province,
+                            city:message.field.city,
+                            area:message.field.area
+                        }),
+                        success: function (res) {
+                            if (res =="1") {
+                                // layer.closeAll("loading");
+                                // layer.load(2);
+                                setTimeout(function () {
+                                    location.reload();
+                                },1000)
+                                layer.msg("用户添加成功", {offset:'100px'});
+                            } else if (res =="2") {
+                                layer.msg("用户已存在",{offset:'100px'});
+                            }else{
+                                layer.msg("添加失败",{offset:'100px'});
+                            }
+                        }
+                    })
+                    return false;
+                });
+
+            })
         </script>
     </div>
 
@@ -98,7 +135,7 @@
     </div>
     <br><br>
     <div class="layui-input-block">
-        <button class="layui-btn"  type="submit " lay-submit lay-filter="adduser">立即添加</button>
+        <button class="layui-btn" lay-submit lay-filter="adduser">立即添加</button>
         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
     </div>
 
@@ -290,14 +327,11 @@
                                 layer.msg("修改成功", {icon: 6});
 
                                 setTimeout(function () {
-                                        obj.update({
-                                            name: data.userName,
-                                            phone: data.userPhone,
-                                            power:data.userPower
-                                        });//修改成功修改表格数据不进行跳转
                                         location.reload();//刷新页面
-                                        /* layer.closeAll();//关闭所有的弹出层*/
                                     },1000);
+                                layer.closeAll();
+                                layer.msg("修改成功",{offset:'100px'});
+                                form.render();
                                 //form.render();
                             }else {
                                 layer.msg("修改失败", {icon: 5});

@@ -211,21 +211,31 @@ public class UserController {
     }
 
     //添加用户
-    @RequestMapping(value = "/adduser",method = RequestMethod.POST)
-    public String addUser(@RequestParam(value = "userNumber") String userNumber,
-                          @RequestParam(value = "userName") String userName,
-                          @RequestParam(value = "userType") String userType,
-                          @RequestParam(value = "userBirthday") String userBirthday,
-                          @RequestParam(value = "userPhone") String userPhone,
-                          @RequestParam(value = "province") String userProvince,
-                          @RequestParam(value = "city") String userCity,
-                          @RequestParam(value = "area") String userArea){
+    @ResponseBody
+    @RequestMapping(value = "/adduser1",method = RequestMethod.POST)
+    public String addUser(@RequestBody Map<String,Object> map){
 
         String userPassword = "12";
 
         String userImg = "user01.png";
 
         User user = new User();
+
+        String userNumber = (String) map.get("number");
+
+        String userName = (String) map.get("name");
+
+        String userBirthday = (String) map.get("birth");
+
+        String userType = (String) map.get("type");
+
+        String userProvince = (String) map.get("province");
+
+        String userCity = (String) map.get("city");
+
+        String userArea = (String) map.get("area");
+
+        String userPhone = (String) map.get("phone");
 
         user.setUserNumber(userNumber);
 
@@ -249,8 +259,15 @@ public class UserController {
 
         System.out.println("hdakshdakhsdkahUUUUSSSSEEERRR"+user);
 
-        userService.addUser(user);
+        if (userService.getuserByNum(userNumber)!=null){
 
-        return "userlist";
+            System.out.println("hdajkshdkjashdjska"+userService.getuserByNum(userNumber));
+               return "2";
+           }else if(userService.addUser(user)){
+
+            return "1";
+        }else {
+            return "0";
+        }
     }
 }

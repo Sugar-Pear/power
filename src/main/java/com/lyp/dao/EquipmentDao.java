@@ -23,7 +23,7 @@ public interface EquipmentDao {
 
     @Insert("insert into equipment(equipmentNumber,equipmentName,equipmentAmount,equipmentInDate,equipmentState,equipmentVoltage,equipmentI) " +
             "values(#{equipmentNumber},#{equipmentName},#{equipmentAmount},#{equipmentInDate},#{equipmentState},#{equipmentVoltage},#{equipmentI})")
-    void addEquipment(Equipment equipment);
+    boolean addEquipment(Equipment equipment);
 
     //添加任务
     @Insert("insert into task(equipmentNumber,taskDes,taskBirthDate,taskEndDate) values(#{0},#{1},#{2},#{3})")

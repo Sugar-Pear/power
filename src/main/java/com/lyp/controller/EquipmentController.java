@@ -187,9 +187,15 @@ public class EquipmentController {
 
         System.out.println("EEEQQQ"+equipment);
 
-        equipmentService.addequipment(equipment);
+        if (equipmentService.findEquStateByNum(equipmentNumber)!=null){
 
-        return "1";
+            return "2";
+        }else if (equipmentService.addequipment(equipment)){
+
+            return "1";
+        }
+
+        return "0";
     }
 
 }

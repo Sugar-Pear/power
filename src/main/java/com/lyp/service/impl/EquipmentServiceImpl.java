@@ -80,8 +80,8 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public void addequipment(Equipment equipment) {
-        equipmentDao.addEquipment(equipment);
+    public boolean addequipment(Equipment equipment) {
+        return equipmentDao.addEquipment(equipment);
     }
 
     @Override

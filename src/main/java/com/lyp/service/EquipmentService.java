@@ -16,7 +16,7 @@ public interface EquipmentService {
     //分页数据总数
     Integer selectPageCount(Pages pages);
 
-    void addequipment(Equipment equipment);
+    boolean addequipment(Equipment equipment);
 
     void deleteequipmentByNum(String equipmentNumber);
 

@@ -22,6 +22,40 @@
                     content:$("#addequipment")
                 });
             }
+            layui.use([ 'form' ], function() {
+                var form1 = layui.form, layer = layui.layer;
+                //添加设备
+                form1.on('submit(add)', function (message) {
+                    $.ajax({
+                        url: '<%=request.getContextPath()%>/addEq',
+                        type: 'post',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({
+                            number: message.field.equipmentNumber,
+                            name: message.field.equipmentName,
+                            amount: message.field.equipmentAmount,
+                            indate: message.field.equipmentInDate,
+                            v: message.field.equipmentVoltage,
+                            i: message.field.equipmentI
+                        }),
+                        success: function (res) {
+                            if (res == "1") {
+                                // layer.closeAll("loading");
+                                // layer.load(2);
+                                setTimeout(function () {
+                                    location.reload();
+                                },1000)
+                                layer.msg("设备添加成功",{offset:'100px'});
+                            } else if (res == "2") {
+                                layer.msg("设备已存在",{offset:'100px'});
+                            }else {
+                                layer.msg("设备添加失败",{offset:'100px'});
+                            }
+                        }
+                    })
+                    return false;
+                });
+            });
         </script>
     </div>
     <div class="row-content am-cf" style="position: relative;top: 25px;">
@@ -109,42 +143,6 @@
 </form>
 </body>
 <script>
-    layui.use([ 'form' ], function() {
-        var form = layui.form, layer = layui.layer;
-        //添加设备
-        alert("1");
-        form.on('submit(add)', function (message) {
-            alert("2");
-            $, ajax({
-                url: '<%=request.getContextPath()%>/addEq',
-                type: 'post',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify({
-                    number: message.field.equipmentNumber,
-                    name: message.field.equipmentName,
-                    amount: message.field.equipmentAmount,
-                    indate: message.field.equipmentInDate,
-                    v: message.field.equipmentVoltage,
-                    i: message.field.equipmentI
-
-                }),
-                success: function (res) {
-                    if (res = "1") {
-                        layer.closeAll("loading");
-                        layer.load(2);
-                        layer.msg("添加成功", {icon: 6});
-                    } else {
-                        layer.msg("添加失败");
-                    }
-                }
-            })
-            return false;
-        });
-    });
-
-
-
-
     layui.use(['layer', 'table', 'laydate','element', 'form'], function() {
         var layer = layui.layer
             , form = layui.form
@@ -210,7 +208,7 @@
         table.on('tool(test)', function(obj){
             var data = obj.data;
             if(obj.event === 'del'){
-                layer.confirm('真的删除行么',{offset:"100px"}, function(index){
+                layer.confirm('真的删除该设备么?',{offset:"100px"}, function(index){
                     console.log("really?:"+obj);
                     console.log("data"+data.equipmentNumber);
                     $.ajax({
@@ -242,7 +240,7 @@
                     title:'修改设备信息',
                     type:1,
                     offset:"30px",
-                    area:['400px','500px'],
+                    area:['400px','300px'],
                     content:$("#form1")
                 });
                 $("#number").val(data.equipmentNumber);
@@ -262,15 +260,13 @@
                             if(returnCode == "1"){
 
                                 setTimeout(function () {
-                                    console.log("修改成功");
-                                    layer.msg("修改成功");
-                                    alert("修改成功");
-                                     form.render();
+                                    location.reload();
                                 },1000);
-
+                                layer.closeAll();
+                                layer.msg("修改成功",{offset:'100px'});
+                                form.render();
                                 //layer.msg("修改成功");
                             }else {
-                                console.log("修改mei成功");
                                 layer.msg("修改失败", {icon: 5});
                             }
                         }
