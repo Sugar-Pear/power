@@ -14,18 +14,23 @@
         <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="addEquipment()">添加设备</button>
         <script>
             function addEquipment(){
+                document.getElementById("qq").removeAttribute("hidden");
                 layer.open({
                     title:'添加设备',
                     type:1,
-                    offset:"100px",
+                    offset:"20px",
                     area:['400px','500px'],
                     content:$("#addequipment")
                 });
+               // layer.close(document.getElementById("qq").setAttribute("hidden",true));
+            //
             }
             layui.use([ 'form' ], function() {
                 var form1 = layui.form, layer = layui.layer;
                 //添加设备
                 form1.on('submit(add)', function (message) {
+                    // console.log("jing2");
+                    // document.getElementById("qq").removeAttribute("hidden");
                     $.ajax({
                         url: '<%=request.getContextPath()%>/addEq',
                         type: 'post',
@@ -46,13 +51,16 @@
                                     location.reload();
                                 },1000)
                                 layer.msg("设备添加成功",{offset:'100px'});
+                                document.getElementById("qq").setAttribute("hidden",true);
                             } else if (res == "2") {
                                 layer.msg("设备已存在",{offset:'100px'});
                             }else {
                                 layer.msg("设备添加失败",{offset:'100px'});
                             }
                         }
-                    })
+                    });
+
+                    //
                     return false;
                 });
             });
@@ -68,79 +76,84 @@
 </div>
 
 <%--添加设备--%>
-<form class="layui-form layui-form-pane1" id="addequipment" name="addequipment">
-    <br>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 86px;">设备编号</label>
-        <div class="layui-input-inline">
-            <input  type="text" name="equipmentNumber" id="number1" lay-verify="required|number" autocomplete="off" class="layui-input">
+<div hidden id="qq">
+    <form class="layui-form layui-form-pane1" id="addequipment" name="addequipment">
+        <br>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 86px;">设备编号</label>
+            <div class="layui-input-inline">
+                <input  type="text" name="equipmentNumber" id="number1" lay-verify="required|number" autocomplete="off" class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 86px;">设备名称</label>
-        <div class="layui-input-inline">
-            <input  type="text" name="equipmentName" id="name1" lay-verify="required|number" autocomplete="off" class="layui-input">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 86px;">设备名称</label>
+            <div class="layui-input-inline">
+                <input  type="text" name="equipmentName" id="name1" lay-verify="required|number" autocomplete="off" class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 86px;">设备数量</label>
-        <div class="layui-input-inline">
-            <input  type="text" name="equipmentAmount" id="amount1" lay-verify="required|number" autocomplete="off" class="layui-input">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 86px;">设备数量</label>
+            <div class="layui-input-inline">
+                <input  type="text" name="equipmentAmount" id="amount1" lay-verify="required|number" autocomplete="off" class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 86px;">入库日期</label>
-        <div class="layui-input-inline">
-            <input  type="text" name="equipmentInDate" id="indate" lay-verify="required" autocomplete="off" class="layui-input">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 86px;">入库日期</label>
+            <div class="layui-input-inline">
+                <input  type="text" name="equipmentInDate" id="indate" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 86px;">设备电压</label>
-        <div class="layui-input-inline">
-            <input  type="text" name="equipmentVoltage" id="voltage" lay-verify="required|number" autocomplete="off" class="layui-input">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 86px;">设备电压</label>
+            <div class="layui-input-inline">
+                <input  type="text" name="equipmentVoltage" id="voltage" lay-verify="required|number" autocomplete="off" class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 86px;">设备电流</label>
-        <div class="layui-input-inline">
-            <input  type="text" name="equipmentI" id="i" lay-verify="required|number" autocomplete="off" class="layui-input">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 86px;">设备电流</label>
+            <div class="layui-input-inline">
+                <input  type="text" name="equipmentI" id="i" lay-verify="required|number" autocomplete="off" class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="add">确认添加</button>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="add">确认添加</button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
+
 
 
 <%--设备信息弹窗--%>
-<form class="layui-form layui-form-pane1" id="form1" name="form1" style="" action="<%=request.getContextPath()%>/modify"  method="post" lay-filter="first1">
-    <br>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 86px;">设备编号</label>
-        <div class="layui-input-inline">
-            <input  type="text" name="equipmentNumber" id="number" lay-verify="required|number" autocomplete="off" class="layui-input" readonly>
+<div id="qq1" hidden>
+    <form class="layui-form layui-form-pane1" id="form1" name="form1" style="" action="<%=request.getContextPath()%>/modify"  method="post" lay-filter="first1">
+        <br>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 86px;">设备编号</label>
+            <div class="layui-input-inline">
+                <input  type="text" name="equipmentNumber" id="number" lay-verify="required|number" autocomplete="off" class="layui-input" readonly>
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 86px;">设备名称</label>
-        <div class="layui-input-inline">
-            <input type="text" name="equipmentName" id="name" lay-verify="required|name" autocomplete="off" class="layui-input" readonly>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 86px;">设备名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="equipmentName" id="name" lay-verify="required|name" autocomplete="off" class="layui-input" readonly>
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 86px;">设备总数</label>
-        <div class="layui-input-inline">
-            <input type="text" name="equipmentAmount" id="amount" lay-verify="required" lay-verType="tips" autocomplete="off" class="layui-input">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 86px;">设备总数</label>
+            <div class="layui-input-inline">
+                <input type="text" name="equipmentAmount" id="amount" lay-verify="required" lay-verType="tips" autocomplete="off" class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="eqMo">修改</button>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="eqMo">修改</button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 </body>
 <script>
     layui.use(['layer', 'table', 'laydate','element', 'form'], function() {
@@ -236,6 +249,7 @@
                     });
                 });
             } else if(obj.event === 'edit'){
+                document.getElementById("qq1").removeAttribute("hidden");
                 layer.open({
                     title:'修改设备信息',
                     type:1,

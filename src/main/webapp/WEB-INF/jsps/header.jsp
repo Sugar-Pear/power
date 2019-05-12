@@ -98,7 +98,7 @@
                     <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
                 </a>
             </li>
-            <li class="sidebar-nav-link" <c:if test="${user.userType eq '普通用户'}">hidden</c:if>>
+            <li class="sidebar-nav-link">
                 <a href="userlist">
                     <i class="am-icon-table sidebar-nav-link-logo"></i> 用户列表
                 </a>

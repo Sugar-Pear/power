@@ -15,6 +15,7 @@
         <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="addUser()">添加人员</button>
         <script>
             function addUser() {
+                document.getElementById("qq").removeAttribute("hidden");
                 layer.open({
                     title:'添加人员',
                     type:1,
@@ -49,6 +50,7 @@
                                     location.reload();
                                 },1000)
                                 layer.msg("用户添加成功", {offset:'100px'});
+                                document.getElementById("qq").setAttribute("hidden",true);
                             } else if (res =="2") {
                                 layer.msg("用户已存在",{offset:'100px'});
                             }else{
@@ -73,121 +75,124 @@
 </div>
 
 <%--添加用户弹窗--%>
-<form class="layui-form layui-form-pane1" id="adduser" name="adduser" action="<%=request.getContextPath()%>/adduser" method="post">
-    <br>
-    <div class="layui-form-item">
-        <label class="layui-form-label">编号</label>
-        <div class="layui-input-inline">
-            <input  type="text" name="userNumber" id="number1" required placeholder="请输入用户编号" lay-verify="required|number" autocomplete="off" class="layui-input">
+<div id="qq" hidden>
+    <form class="layui-form layui-form-pane1" id="adduser" name="adduser" action="<%=request.getContextPath()%>/adduser" method="post">
+        <br>
+        <div class="layui-form-item">
+            <label class="layui-form-label">编号</label>
+            <div class="layui-input-inline">
+                <input  type="text" name="userNumber" id="number1" required placeholder="请输入用户编号" lay-verify="required|number" autocomplete="off" class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">姓名</label>
-        <div class="layui-input-inline">
-            <input type="text" name="userName" id="name1" lay-verify="required|name" required placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="userName" id="name1" lay-verify="required|name" required placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">手机</label>
-        <div class="layui-input-inline">
-            <input type="tel" name="userPhone" id="phone1" lay-verify="required|number" placeholder="请输入手机号码" lay-verType="tips" autocomplete="off" class="layui-input">
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="userPhone" id="phone1" lay-verify="required|number" placeholder="请输入手机号码" lay-verType="tips" autocomplete="off" class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-    <div class="layui-form-label">生日</div>
-    <div class="layui-input-inline">
-        <input placeholder="用户生日" type="text" id="birth1" name="userBirthday" lay-verify="birth1" autocomplete="off" class="layui-input">
-    </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">权限</label>
-        <div class="layui-input-inline">
-            <select name="userType"  id="utype1" lay-verify="required" lay-filter="interest-search" lay-search>
-                <option value="">请赋予用户权限</option>
-                <option value="管理员">管理员</option>
-                <option value="普通用户" >普通用户</option>
-            </select>
+        <div class="layui-form-item">
+            <div class="layui-form-label">生日</div>
+            <div class="layui-input-inline">
+                <input placeholder="用户生日" type="text" id="birth1" name="userBirthday" lay-verify="birth1" autocomplete="off" class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-form-label">密码</div>
-        <div class="layui-input-inline">
-            <input type="text" placeholder="初始密码为12" name="userPassword" lay-verify="pass1" autocomplete="off" class="layui-input" readonly>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限</label>
+            <div class="layui-input-inline">
+                <select name="userType"  id="utype1" lay-verify="required" lay-filter="interest-search" lay-search>
+                    <option value="">请赋予用户权限</option>
+                    <option value="管理员">管理员</option>
+                    <option value="普通用户" >普通用户</option>
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-form-label">地址</div>
-        <div class="layui-input-inline">
-            <select name="province" lay-filter="province" id="myprovince">
-                <option value="">请选择省</option>
-            </select>
+        <div class="layui-form-item">
+            <div class="layui-form-label">密码</div>
+            <div class="layui-input-inline">
+                <input type="text" placeholder="初始密码为12" name="userPassword" lay-verify="pass1" autocomplete="off" class="layui-input" readonly>
+            </div>
         </div>
-        <div class="layui-input-inline">
-            <select name="city" lay-filter="city" id="mycity">
-                <option value=''>请选择市/区</option>
-            </select>
+        <div class="layui-form-item">
+            <div class="layui-form-label">地址</div>
+            <div class="layui-input-inline">
+                <select name="province" lay-filter="province" id="myprovince">
+                    <option value="">请选择省</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="city" lay-filter="city" id="mycity">
+                    <option value=''>请选择市/区</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="area" lay-filter="area" id="myarea">
+                    <option value=''>请选择县</option>
+                </select>
+            </div>
         </div>
-        <div class="layui-input-inline">
-            <select name="area" lay-filter="area" id="myarea">
-                <option value=''>请选择县</option>
-            </select>
+        <br><br>
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="adduser">立即添加</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
-    </div>
-    <br><br>
-    <div class="layui-input-block">
-        <button class="layui-btn" lay-submit lay-filter="adduser">立即添加</button>
-        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-    </div>
 
-</form>
+    </form>
 
+</div>
 
 
 <%--修改弹出框--%>
-<form class="layui-form layui-form-pane1" id="form1" name="form1" style="" action="<%=request.getContextPath()%>/modify"  method="post" lay-filter="first1">
-    <br>
-    <div class="layui-form-item">
-        <label class="layui-form-label">编号</label>
-        <div class="layui-input-inline">
-            <input  type="text" name="userNumber" id="number" lay-verify="required|number" autocomplete="off" class="layui-input" readonly>
+<div id="qq1" hidden>
+    <form class="layui-form layui-form-pane1" id="form1" name="form1" style="" action="<%=request.getContextPath()%>/modify"  method="post" lay-filter="first1">
+        <br>
+        <div class="layui-form-item">
+            <label class="layui-form-label">编号</label>
+            <div class="layui-input-inline">
+                <input  type="text" name="userNumber" id="number" lay-verify="required|number" autocomplete="off" class="layui-input" readonly>
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">姓名</label>
-        <div class="layui-input-inline">
-            <input type="text" name="userName" id="name" lay-verify="required|name" required placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="userName" id="name" lay-verify="required|name" required placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-    <label class="layui-form-label">手机</label>
-    <div class="layui-input-inline">
-        <input type="tel" name="userPhone" id="phone" lay-verify="required|number" placeholder="请输入手机号码" lay-verType="tips" autocomplete="off" class="layui-input">
-    </div>
-    </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="userPhone" id="phone" lay-verify="required|number" placeholder="请输入手机号码" lay-verType="tips" autocomplete="off" class="layui-input">
+            </div>
+        </div>
 
-    <div class="layui-form-item">
-        <div class="layui-form-label">生日</div>
-        <div class="layui-input-inline">
-            <input type="text" id="birth" name="userBirthday" lay-verify="birth" autocomplete="off" class="layui-input">
+        <div class="layui-form-item">
+            <div class="layui-form-label">生日</div>
+            <div class="layui-input-inline">
+                <input type="text" id="birth" name="userBirthday" lay-verify="birth" autocomplete="off" class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">权限</label>
-        <div class="layui-input-inline">
-            <select name="userType"  id="utype" lay-verify="required|" lay-filter="interest-search" lay-search>
-                <option value=""></option>
-                <option value="管理员">管理员</option>
-                <option value="普通用户" >普通用户</option>
-            </select>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限</label>
+            <div class="layui-input-inline">
+                <select name="userType"  id="utype" lay-verify="required|" lay-filter="interest-search" lay-search>
+                    <option value=""></option>
+                    <option value="管理员">管理员</option>
+                    <option value="普通用户" >普通用户</option>
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="*">修改</button>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="*">修改</button>
+            </div>
         </div>
-    </div>
-</form>
-
+    </form>
+</div>
 
 </body>
 <script>
@@ -294,6 +299,7 @@
                     });
                 });
             } else if(obj.event === 'edit') {
+                document.getElementById("qq1").removeAttribute("hidden");
                 layer.open({
                     title:'修改人员信息',
                     type:1,
@@ -325,7 +331,7 @@
                                 layer.closeAll("loading");
                                 layer.load(2);
                                 layer.msg("修改成功", {icon: 6});
-
+                                document.getElementById("qq1").setAttribute("hidden",true);
                                 setTimeout(function () {
                                         location.reload();//刷新页面
                                     },1000);
