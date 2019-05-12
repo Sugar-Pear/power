@@ -49,7 +49,8 @@
 </body>
 <script>
     layui.use(['form'],function () {
-        var form = layui.form
+        var form = layui.form;
+        var layer = layui.layer;
 
         console.log("acceptTask1");
         form.on('submit(acceptTask1)',function (message) {
@@ -62,19 +63,20 @@
                     number:message.field.equipmentNumber,
                 }),
                 success:function (res) {
-                    if (res = '1'){
-
-                        setTimeout(function () {
-                            layui.msg("任务领取成功");
-                            form.render();
-                        },1000)
-                    } else{
-                        layui.msg("任务领取失败，请重新领取");
+                    if (res == "1"){
+                        console.log("tan");
+                        layer.msg("任务领取成功");
+                        form.render();
+                        setTimeout(function(){
+                            window.location.href="<%=request.getContextPath()%>/looktask";
+                        },1000);
+                    } else {
+                        layer.msg("任务领取失败，请重新领取");
                     }
                 }
             });
             return false;
         });
-    })
+    });
 </script>
 </html>

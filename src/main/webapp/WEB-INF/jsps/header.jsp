@@ -45,7 +45,7 @@
                 <li>
                     <%--任务中心--%>
                     <li class="layui-nav-item" <c:if test="${user.userType eq '管理员'}">hidden</c:if>>
-                            <a href="">任务中心<span class="layui-badge-dot"></span></a>
+                            <a href="looktask">任务中心<span class="layui-badge-dot"></span></a>
                         </li>
                     <!-- 欢迎语 -->
                     <li class="am-text-sm tpl-header-navbar-welcome">
