@@ -1,7 +1,7 @@
 package com.lyp.service;
 
 import com.lyp.model.Equipment;
-import com.lyp.model.Pages;
+import com.lyp.utils.Pages;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,8 +1,8 @@
 package com.lyp.controller;
 
 import com.lyp.model.Equipment;
-import com.lyp.model.Pages;
-import com.lyp.model.ResultMap;
+import com.lyp.utils.Pages;
+import com.lyp.utils.ResultMap;
 import com.lyp.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,10 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.SimpleFormatter;
 
 @Controller
 public class EquipmentController {
@@ -143,6 +141,8 @@ public class EquipmentController {
         page.setRows(limit);
 
         List<Equipment> contentList = equipmentService.selectPageListByState(page);
+
+
 
         int totals = equipmentService.selectPageCountByState(page);
 

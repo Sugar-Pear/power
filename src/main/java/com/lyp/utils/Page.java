@@ -1,4 +1,4 @@
-package com.lyp.model;
+package com.lyp.utils;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.lyp.model;
+package com.lyp.utils;
 
 public class ResultMap<T> {
     private String msg;

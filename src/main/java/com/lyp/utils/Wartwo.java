@@ -1,6 +1,6 @@
-package com.lyp.model;
+package com.lyp.utils;
 
-public class War {
+public class Wartwo {
 
     private String userNumber;
 
@@ -14,7 +14,7 @@ public class War {
 
     private String checkProblem;
 
-    private Integer state;
+    private String equipmentName;
 
     public String getUserNumber() {
         return userNumber;
@@ -64,24 +64,24 @@ public class War {
         this.checkProblem = checkProblem;
     }
 
-    public Integer getState() {
-        return state;
+    public String getEquipmentName() {
+        return equipmentName;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setEquipmentName(String equipmentName) {
+        this.equipmentName = equipmentName;
     }
 
     @Override
     public String toString() {
-        return "War{" +
+        return "Wartwo{" +
                 "userNumber='" + userNumber + '\'' +
                 ", uploadWar='" + uploadWar + '\'' +
                 ", equipmentNumber='" + equipmentNumber + '\'' +
                 ", taskAcceptDate='" + taskAcceptDate + '\'' +
                 ", taskEndDate='" + taskEndDate + '\'' +
                 ", checkProblem='" + checkProblem + '\'' +
-                ", state=" + state +
+                ", equipmentName='" + equipmentName + '\'' +
                 '}';
     }
 }

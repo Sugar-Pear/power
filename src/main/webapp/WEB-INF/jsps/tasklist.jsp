@@ -79,7 +79,7 @@
         table.on('tool(test)', function(obj){
             var data = obj.data;
             if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
+                layer.confirm('真的取消发布的任务么',{offset:"100px"}, function(index){
                     console.log("really?:"+obj);
                     console.log("data"+data.equipmentNumber);
                     $.ajax({
@@ -113,8 +113,11 @@
                     data:{"equipmentNumber":data.equipmentNumber},
                     dataType: "json",
                     success:function (res) {
-                        if (res = '1'){
-                            window.location.href="<%=request.getContextPath()%>/taskmessage2";
+                        if (res == "1"){
+                            setTimeout(function () {
+                                window.location.href="<%=request.getContextPath()%>/taskmessage2";
+                            },1000);
+                            layer.msg("正在跳转至任务领取界面");
                         }
                     }
                 })

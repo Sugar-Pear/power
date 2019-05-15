@@ -2,8 +2,8 @@ package com.lyp.service.impl;
 
 import com.lyp.dao.EquipmentDao;
 import com.lyp.model.Equipment;
-import com.lyp.model.Page;
-import com.lyp.model.Pages;
+import com.lyp.utils.Page;
+import com.lyp.utils.Pages;
 import com.lyp.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

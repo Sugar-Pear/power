@@ -1,6 +1,6 @@
 package com.lyp.service;
 
-import com.lyp.model.Pages;
+import com.lyp.utils.Pages;
 import com.lyp.model.War;
 import org.springframework.ui.Model;
 
@@ -17,5 +17,11 @@ public interface WarService {
     Integer selectUserTaskPageCount(Pages pages);
 
     //用户领取任务
-    void addTask(String equipmentNumber, String userNumber,String taskAcceptDate);
+    void addTask(String equipmentNumber, String userNumber,String taskAcceptDate,Integer state);
+
+    //用户取消任务
+    void deleteUserTask(String equipmentNumber);
+
+    //添加音频
+    boolean updateWav(War war);
 }

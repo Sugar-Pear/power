@@ -46,7 +46,11 @@
                     <%--任务中心--%>
                     <li class="layui-nav-item" <c:if test="${user.userType eq '管理员'}">hidden</c:if>>
                             <a href="looktask">任务中心<span class="layui-badge-dot"></span></a>
-                        </li>
+                    </li>
+                    <%--审核中心--%>
+                    <li class="layui-nav-item" <c:if test="${user.userType eq '普通用户'}">hidden</c:if>>
+                        <a href="checkwav">审核中心<span class="layui-badge-dot"></span></a>
+                    </li>
                     <!-- 欢迎语 -->
                     <li class="am-text-sm tpl-header-navbar-welcome">
                         <a>欢迎你, <span>${user.userName}</span></a>

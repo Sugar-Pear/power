@@ -2,6 +2,7 @@ package com.lyp.controller;
 
 
 import com.lyp.model.*;
+import com.lyp.service.EquipmentService;
 import com.lyp.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ public class TaskController {
 
     @Autowired
     TaskService taskService;
+    @Autowired
+    EquipmentService equipmentService;
 
     //任务信息
     @RequestMapping(value = "/taskmessage1")
@@ -42,4 +45,12 @@ public class TaskController {
         return "taskmessage";
     }
 
+    //取消发布的任务
+    @ResponseBody
+    @RequestMapping(value = "taskdelete")
+    public String taskdelete(String equipmentNumber){
+        equipmentService.updateState(equipmentNumber,"良好");
+        taskService.deleteTask(equipmentNumber);
+        return "1";
+    }
 }

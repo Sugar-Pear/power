@@ -1,6 +1,6 @@
 package com.lyp.dao;
 
-import com.lyp.model.Pages;
+import com.lyp.utils.Pages;
 import com.lyp.model.User;
 import org.apache.ibatis.annotations.*;
 

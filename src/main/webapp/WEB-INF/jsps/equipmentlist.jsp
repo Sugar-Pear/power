@@ -88,7 +88,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 86px;">设备名称</label>
             <div class="layui-input-inline">
-                <input  type="text" name="equipmentName" id="name1" lay-verify="required|number" autocomplete="off" class="layui-input">
+                <input  type="text" name="equipmentName" id="name1" lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">

@@ -1,119 +1,25 @@
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2019/5/12/012
-  Time: 10:22
+  Date: 2019/5/13/013
+  Time: 14:02
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <body>
-<%@include file="header.jsp" %>
+<%@include file="header.jsp"%>
 <div class="tpl-content-wrapper">
     <div class="row-content am-cf">
         <table id="test" lay-filter="test"></table>
         <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">提交任务</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">取消任务</a>
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">检测</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">通过审核</a>
         </script>
     </div>
 </div>
 </body>
-<div id="qq">
-    <form class="layui-form layui-form-pane1" id="submitUserTask" name="submitUserTask">
-        <br>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 86px;">设备编号</label>
-            <div class="layui-input-block">
-                <input style="width: 250px;" type="text" name="equipmentNumber" id="number" lay-verify="required|number"
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
-            <input type="hidden" id="wavSrc" name="wavSrc" >
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label" style="width: 86px;">附加信息</label>
-            <div class="layui-input-block">
-                <textarea placeholder="填写一些设备的其他情况" style="width: 300px;" id="problem" name="checkProblem" class="layui-textarea"></textarea>
-            </div>
-        </div>
-        <div class="layui-form-item" style="position: absolute;left: 110px;">
-            <div class="layui-input-block">
-                <button  class="layui-btn" lay-submit lay-filter="*">开始上传</button>
-            </div>
-        </div>
-    </form>
-    <div style="position: absolute;left: 110px;">
-        <div class="layui-upload">
-            <button type="button" class="layui-btn layui-btn-normal" id="selectFile">上传文件</button>
-        </div>
-    </div>
-
-</div>
-
-
 <script>
-    layui.use(['upload','form'], function () {
-        var $ = layui.jquery,
-            upload = layui.upload,
-            form =layui.form;
-        var ww;
-        upload.render({
-            elem: '#selectFile'
-            , url: '<%=request.getContextPath()%>/uploadFile'
-            , accept: 'file'
-            // , auto: false
-            // , bindAction: '#startUploadFile'
-            ,size: 1024 * 400,
-
-            done: function (res) {
-                if (res.code > 0) {
-                    alert("code"+res.code);
-                    alert("路径"+res.src);
-                    console.log("123");
-                    console.log($("#wavSrc"));
-                    console.log(res.src);
-                    console.log("123");
-                    var ww = $('#wavSrc').attr("value",res.src);
-                    alert("www"+ww);
-                    layer.msg("文件保存成功");
-                    //document.getElementById("wavSrc").value = res.date.url;
-                } else if (res.code < 0) {
-                    layer.msg('文件格式不正确');
-                } else {
-                    layer.msg("文件上传错误");
-                }
-            }
-            });
-
-        //提交任务信息
-        form.on(('submit(*)'),function (message){
-            $.ajax({
-                url:'<%=request.getContextPath()%>/submitTask1',
-                type:'post',
-                contentType:'application/json; charset=utf-8',
-                data:JSON.stringify({
-                    number:message.field.equipmentNumber,
-                    wavSrc:message.field.wavSrc,
-                    problem:message.field.checkProblem,
-                }),
-                success:function (res) {
-                    if (res == "1"){
-                        setTimeout(function () {
-                            location.reload();
-                        },1000)
-                        layer.msg("任务提交成功");
-                    }else{
-                        layer.msg("任务提交失败");
-                    }
-                }
-
-            });
-            return false;
-        });
-
-    });
-
-
     layui.use(['layer', 'table', 'element', 'form'], function () {
         var layer = layui.layer
             , form = layui.form
@@ -123,7 +29,7 @@
         table.render({
             elem: '#test'  //绑定table表格
             , height: 600
-            , url: '<%=request.getContextPath()%>/usertasklist' //后台springmvc接收路径
+            , url: '<%=request.getContextPath()%>/checkwavlist' //后台springmvc接收路径
             , page: true    //true表示分页
             /* page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
              layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
@@ -137,7 +43,8 @@
             , id: 'contenttable'
             , toolbar: '#toolbarDemo'
             , cols: [[
-                {field: 'equipmentNumber', title: '设备编号', align: 'center', width: 246, fixed: 'left', sort: true}
+                 {field: 'userNumber', title: '检测人编号', align: 'center', width: 246, fixed: 'left', sort: true}
+                ,{field: 'equipmentNumber', title: '检测设备编号', align: 'center', width: 246, fixed: 'left', sort: true}
                 , {field: 'equipmentName', title: '设备名称', align: 'center', width: 210, fixed: 'left'}
                 , {field: 'taskAcceptDate', title: '接收日期', align: 'center', width: 341}
                 , {fixed: 'right', width: 266, title: '操作', align: 'center', toolbar: '#barDemo'}

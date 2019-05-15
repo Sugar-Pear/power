@@ -232,12 +232,12 @@
             ,cols: [[
                 //{type: 'checkbox', fixed: 'left'}
                 {field:'userNumber', title:'编号', align:'center',width:120, fixed: 'left', sort: true}
-                ,{field:'userName', title:'姓名', align:'center',width:90, edit: 'text'}
-                ,{field:'userType', title:'类型', align:'center',width:88, edit: 'text'}
+                ,{field:'userName', title:'姓名', align:'center',width:90}
+                ,{field:'userType', title:'类型', align:'center',width:88}
                 ,{field:'userBirthday', title:'生日', align:'center',width:115}
-                ,{field:'userProvince', title:'省', align:'center',width:144, sort: true}
-                ,{field:'userCity', title:'市', align:'center',width:102, sort: true}
-                ,{field:'userArea', title:'县', align:'center',width:102, sort: true}
+                ,{field:'userProvince', title:'省', align:'center',width:144}
+                ,{field:'userCity', title:'市', align:'center',width:102}
+                ,{field:'userArea', title:'县', align:'center',width:102}
                 ,{field:'userPhone', title:'电话', align:'center', width:124}
                 ,{fixed: 'right', width:180,title:'操作', align:'center', toolbar: '#barDemo'}
             ]]
@@ -271,7 +271,7 @@
         table.on('tool(test)', function(obj){
             var data = obj.data;
             if(obj.event === 'del'){
-                layer.confirm('真的删除行么', {offset:"100px"},function(index){
+                layer.confirm('真的删除用户么？', {offset:"100px"},function(index){
                     console.log("really?:"+obj);
                     console.log("data"+data.userNumber);
                     $.ajax({

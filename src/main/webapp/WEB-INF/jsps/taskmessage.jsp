@@ -20,12 +20,6 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label" style="width: 110px;">任务时间</label>
-                    <div class="layui-input-inline">
-                        <input type="text" value="${task.taskBirthDate}" id="taskBirthDate" name="taskBirthDate" autocomplete="off" class="layui-input" lay-verify="required" readonly>
-                    </div>
-                </div>
-                <div class="layui-form-item">
                     <label class="layui-form-label" style="width: 110px;">截止时间</label>
                     <div class="layui-input-inline">
                         <input type="text" value="${task.taskEndDate}" id="taskEndDate" name="taskEndDate" autocomplete="off" class="layui-input" lay-verify="required" readonly>

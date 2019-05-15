@@ -1,7 +1,7 @@
 package com.lyp.dao;
 
 import com.lyp.model.Equipment;
-import com.lyp.model.Pages;
+import com.lyp.utils.Pages;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

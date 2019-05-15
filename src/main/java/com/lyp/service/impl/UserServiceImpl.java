@@ -1,8 +1,8 @@
 package com.lyp.service.impl;
 
 import com.lyp.dao.UserDao;
-import com.lyp.model.Page;
-import com.lyp.model.Pages;
+import com.lyp.utils.Page;
+import com.lyp.utils.Pages;
 import com.lyp.model.User;
 import com.lyp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

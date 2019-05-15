@@ -2,8 +2,8 @@ package com.lyp.service.impl;
 
 
 import com.lyp.dao.WarDao;
-import com.lyp.model.Page;
-import com.lyp.model.Pages;
+import com.lyp.utils.Page;
+import com.lyp.utils.Pages;
 import com.lyp.model.War;
 import com.lyp.service.WarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +60,18 @@ public class WarServiceImpl implements WarService{
     }
 
     @Override
-    public void addTask(String equipmentNumber, String userNumber, String taskAcceptDate) {
-        warDao.addTask(equipmentNumber,userNumber,taskAcceptDate);
+    public void addTask(String equipmentNumber, String userNumber, String taskAcceptDate,Integer state) {
+        warDao.addTask(equipmentNumber,userNumber,taskAcceptDate,state);
+    }
+
+    @Override
+    public void deleteUserTask(String equipmentNumber) {
+        warDao.deleteUserTask(equipmentNumber);
+    }
+
+    @Override
+    public boolean updateWav(War war) {
+
+        return warDao.updateWav(war);
     }
 }
