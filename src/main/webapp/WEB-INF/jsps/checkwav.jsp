@@ -13,7 +13,8 @@
     <div class="row-content am-cf">
         <table id="test" lay-filter="test"></table>
         <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">检测</a>
+            <%--lay-event="detail"--%>
+            <a href="test1" class="layui-btn layui-btn-primary layui-btn-xs">检测</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">通过审核</a>
         </script>
     </div>
@@ -43,11 +44,11 @@
             , id: 'contenttable'
             , toolbar: '#toolbarDemo'
             , cols: [[
-                 {field: 'userNumber', title: '检测人编号', align: 'center', width: 246, fixed: 'left', sort: true}
-                ,{field: 'equipmentNumber', title: '检测设备编号', align: 'center', width: 246, fixed: 'left', sort: true}
-                , {field: 'equipmentName', title: '设备名称', align: 'center', width: 210, fixed: 'left'}
-                , {field: 'taskAcceptDate', title: '接收日期', align: 'center', width: 341}
-                , {fixed: 'right', width: 266, title: '操作', align: 'center', toolbar: '#barDemo'}
+                 {field: 'userNumber', title: '检测人编号', align: 'center', width: 135, fixed: 'left', sort: true}
+                ,{field: 'equipmentNumber', title: '检测设备编号', align: 'center', width: 163, fixed: 'left', sort: true}
+                , {field: 'checkProblem', title: '检测问题', align: 'center', width: 379, fixed: 'left'}
+                , {field: 'taskEndDate', title: '完成时间', align: 'center', width: 208}
+                , {fixed: 'right', width: 176, title: '操作', align: 'center', toolbar: '#barDemo'}
             ]]
         });
 
@@ -79,43 +80,24 @@
         table.on('tool(test)', function (obj) {
             var data = obj.data;
             if (obj.event === 'del') {
-                layer.confirm('真的要取消任务么?', {offset: "100px"}, function (index) {
-                    console.log("really?:" + obj);
-                    console.log("data" + data.equipmentNumber);
-                    $.ajax({
-                        url: "<%=request.getContextPath()%>/deleteusertask",
-                        type: "POST",
-                        data: {"equipmentNumber": data.equipmentNumber},
-                        dataType: "json",
-                        success: function (data) {
-                            if (data == null) {
-                                layer.msg("删除失败", {icon: 5});
-                            } else {
-                                //删除这一行
-                                obj.del();
-                                //关闭弹框
-                                layer.close(index);
-                                layer.msg("删除成功", {icon: 6});
-                                layer.closeAll();
-                                parent.location.reload();
-                                Load(); //删除完需要加载数据
-                            }
-                        },
-                        error: function (data) {
-                            alert(data);
-                        },
-                    });
-                });
-            } else if (obj.event === 'detail') {
-                layer.open({
-                    title: '提交任务',
-                    type: 1,
-                    offset: "20px",
-                    area: ['530px', '500px'],
-                    content: $("#qq")
-                });
-                var a = $("#number").val(data.equipmentNumber);
-                form.render();
+                $.ajax({
+                    url:'<%=request.getContextPath()%>/checkWav',
+                    type:'post',
+                    data:{"equipmentNumber":data.equipmentNumber},
+                    dataType:'json',
+                    success:function (res) {
+                        if (res == "1"){
+                            setTimeout(function () {
+                                window.location.reload();
+                            },1000);
+                            layer.msg("已经通过审核");
+                        }else {
+                            layer.msg("未通过审核");
+                        }
+                    }
+                })
+            }else if (obj.event === 'detail') {
+
             }
         });
     });

@@ -35,4 +35,21 @@ public interface WarDao {
     //添加音频
     @Update("update war set checkProblem=#{checkProblem},taskEndDate=#{taskEndDate},uploadWar=#{uploadWar},state=#{state} where equipmentNumber=#{equipmentNumber}")
     boolean updateWav(War war);
+
+    //准备展示待审核任务
+    @Select("select count(*) from war where state=1")
+    int getUserTaskCount1();
+
+    @Select("select * from war where state=1 limit #{startNow},#{pageSize}")
+    List<War> selectUserTask1ByPage(@Param(value = "startPage") Integer startPage, @Param(value = "pageSize") Integer pageSize) throws Exception;
+
+    @Select("select * from war where state=1 order by userNumber ASC limit #{start},#{rows}")
+    List<War> selectUserTaskPageList1(Pages pages);
+
+    @Select("select count(*) from war where state=1")
+    Integer selectUserTaskPageCount1(Pages pages);
+
+    //更改审核任务是否合格
+    @Update("update war set state=#{1} where equipmentNumber=#{0}")
+    boolean updateWavState(String equipmentNumber,int state);
 }

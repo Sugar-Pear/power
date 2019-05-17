@@ -18,7 +18,7 @@ public class CommonInterceptor implements HandlerInterceptor {
             return true;
         }else {
             System.out.println("非法登陆！返回大老爷们");
-            if ((httpServletRequest.getSession().getAttribute("user"))!=null){
+            if ((httpServletRequest.getSession().getAttribute("user"))!=null || httpServletRequest.getSession().getAttribute("register")!=null){
                 System.out.println("session exist");
                 return true;
             }else {

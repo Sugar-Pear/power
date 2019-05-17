@@ -24,4 +24,14 @@ public interface WarService {
 
     //添加音频
     boolean updateWav(War war);
+
+    //待审核的任务列表
+    void showUserTaskByPage1(HttpServletRequest request, Model model) throws Exception;
+
+    List<War> selectUserTaskPageList1(Pages pages);
+
+    Integer selectUserTaskPageCount1(Pages pages);
+
+    //更改提交任务状态
+    boolean updateWavState(String equipmentNumber,int state);
 }

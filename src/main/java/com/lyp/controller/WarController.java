@@ -7,6 +7,7 @@ import com.lyp.service.EquipmentService;
 import com.lyp.service.WarService;
 import com.lyp.utils.Pages;
 import com.lyp.utils.ResultMap;
+import com.lyp.utils.RunPythonWav;
 import com.lyp.utils.Wartwo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -133,7 +134,7 @@ public class WarController {
             list.add(".mp3");
             if (list.contains(extName.toLowerCase())){
                 Date date = new Date();
-                SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
                 String getTime = simpleFormat.format(date);
                 String realFilePath = "D:\\studysoft\\ideaproject\\power\\src\\main\\webapp\\uploadFile";
                 String fileName1 = getTime+extName;
@@ -185,5 +186,42 @@ public class WarController {
     public String checkwav(){
         return "checkwav";
     }
+
+    //展示需要审核的任务
+    @ResponseBody
+    @RequestMapping(value = "/checkwavlist")
+    public ResultMap<List<War>> backContent1(Pages pages,@RequestParam(value = "limit") int limit){
+        pages.setRows(limit);
+        System.out.println("page:"+pages.toString());
+        List<War> contentList = warService.selectUserTaskPageList1(pages);
+        for (int i=0;i<contentList.size();i++){
+            System.out.println("管理员将要审核的表"+contentList.get(i).toString());
+        }
+        int totals = warService.selectUserTaskPageCount1(pages);
+        pages.setTotalRecord(totals);
+        ResultMap<List<War>> checkWavResultMap = new ResultMap<List<War>>(0,"",totals,contentList);
+        return checkWavResultMap;
+    }
+
+    //是否通过审核
+    @ResponseBody
+    @RequestMapping(value = "/checkWav")
+    public String checkWavOk(@RequestParam(value = "equipmentNumber") String equipmentNumber){
+
+        int state = 2;
+        if (warService.updateWavState(equipmentNumber,state)){
+            return "1";
+        }
+        return "0";
+    }
+
+    //wav测试
+    @RequestMapping(value = "/test1")
+    public void test1() throws IOException {
+        //D:\studysoft\pythonPro\picture\DemoPicture.py
+        String[] arg = new String[]{"python","D:\\studysoft\\pythonPro\\picture\\DemoPicture.py"};
+        RunPythonWav.getPython(arg);
+    }
+
 
 }

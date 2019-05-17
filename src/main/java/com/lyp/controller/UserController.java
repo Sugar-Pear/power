@@ -1,5 +1,7 @@
 package com.lyp.controller;
 
+import com.lyp.model.Company;
+import com.lyp.service.CompanyService;
 import com.lyp.utils.Pages;
 import com.lyp.utils.ResultMap;
 import com.lyp.model.User;
@@ -21,6 +23,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CompanyService companyService;
 
     @RequestMapping(value = "/logins")
     public String loginView() {
@@ -44,7 +49,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "toregister")
-    public String toregister() {
+    public String toregister(HttpServletRequest request) {
+        List<Company> list = companyService.selectAllCompany();
+        request.setAttribute("companylist",list);
+        for (int i=0;i<list.size();i++){
+            System.out.println("公司"+list.get(i).toString());
+        }
+        request.getSession().setAttribute("register",1);
         return "register";
     }
 

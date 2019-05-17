@@ -316,7 +316,7 @@
                 form.on("submit(*)",function (message) {
                     $.ajax({
                         url:'<%=request.getContextPath()%>/modify',
-                        method:'POST',
+                        type:'POST',
                         contentType:'application/json; charset=utf-8',
                         data:JSON.stringify({
                             number:message.field.userNumber,

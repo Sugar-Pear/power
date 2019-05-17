@@ -35,7 +35,7 @@ public class WarServiceImpl implements WarService{
 
             page = new Page(totalCount,Integer.parseInt(pageNow));
 
-            userTaskList = warDao.selectUserTaskByPage(page.getStartPos(),page.getPageSize());
+            //userTaskList = warDao.selectUserTaskByPage(page.getStartPos(),page.getPageSize());
         }else {
             page = new Page(totalCount,1);
         }
@@ -73,5 +73,45 @@ public class WarServiceImpl implements WarService{
     public boolean updateWav(War war) {
 
         return warDao.updateWav(war);
+    }
+
+
+    //待审核的任务列表
+    @Override
+    public void showUserTaskByPage1(HttpServletRequest request, Model model) throws Exception {
+
+        String pageNow = request.getParameter("pageNow");
+        Page page= null;
+        List<War> userTaskList1 = new ArrayList<War>();
+        int totalCount = warDao.getUserTaskCount1();
+        if (pageNow != null){
+            page = new Page(totalCount,Integer.parseInt(pageNow));
+            //userTaskList1 = warDao.selectUserTask1ByPage(page.getStartPos(),page.getPageSize());
+        }else {
+
+            page = new Page(totalCount,1);
+        }
+        userTaskList1 = warDao.selectUserTask1ByPage(page.getStartPos(),page.getPageSize());
+
+        model.addAttribute("userTaskList1",userTaskList1);
+        model.addAttribute("page",page);
+
+    }
+
+    @Override
+    public List<War> selectUserTaskPageList1(Pages pages) {
+
+        List<War> list = warDao.selectUserTaskPageList(pages);
+        return list;
+    }
+
+    @Override
+    public Integer selectUserTaskPageCount1(Pages pages) {
+        return warDao.selectUserTaskPageCount1(pages);
+    }
+
+    @Override
+    public boolean updateWavState(String equipmentNumber, int state) {
+        return warDao.updateWavState(equipmentNumber,state);
     }
 }
