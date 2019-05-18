@@ -43,20 +43,6 @@
             <!-- 其它功能-->
             <div class="am-fr tpl-header-navbar">
                 <li>
-                    <%--任务中心--%>
-                    <li class="layui-nav-item" <c:if test="${user.userType eq '管理员'}">hidden</c:if>>
-                        <a href="#">等待审核任务<span class="layui-badge-dot"></span></a>
-                    </li>
-                    <li class="layui-nav-item" <c:if test="${user.userType eq '管理员'}">hidden</c:if>>
-                        <a href="finishtask">已完成的任务</a>
-                    </li>
-                    <%--审核中心--%>
-                    <li class="layui-nav-item" <c:if test="${user.userType eq '普通用户'}">hidden</c:if>>
-                        <a href="checkwav">审核中心<span class="layui-badge-dot"></span></a>
-                    </li>
-                    <li class="layui-nav-item" <c:if test="${user.userType eq '普通用户'}">hidden</c:if>>
-                        <a></a>
-                    </li>
                     <!-- 欢迎语 -->
                     <li class="am-text-sm tpl-header-navbar-welcome">
                         <a>欢迎你, <span>${user.userName}</span></a>
@@ -113,6 +99,38 @@
                     <i class="am-icon-table sidebar-nav-link-logo"></i> 用户列表
                 </a>
             </li>
+
+            <%--只是测试用的--%>
+            <li class="sidebar-nav-link">
+                <a href="javascript:;" class="sidebar-nav-sub-title">
+                    <i class="am-icon-table sidebar-nav-link-logo"></i>设备管理
+                    <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                </a>
+                <ul class="sidebar-nav sidebar-nav-sub">
+                    <li class="sidebar-nav-link">
+                        <a href="javascript:;" class="sidebar-nav-sub-title">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 文字列表
+                        </a>
+                        <ul class="">
+                            <a href="javascript:;" class="sidebar-nav-sub-title">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 文字
+                            </a>
+                        </ul>
+                    </li>
+
+                    <li class="sidebar-nav-link">
+                        <a href="table-list-img.html">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+
+
+
             <li class="sidebar-nav-link">
                 <a href="equipmentlist">
                     <i class="am-icon-table sidebar-nav-link-logo"></i> 设备列表

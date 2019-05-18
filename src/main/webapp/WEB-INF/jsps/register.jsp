@@ -63,8 +63,9 @@
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <select name="companyName">
+                            <option>请选择隶属公司</option>
                             <c:forEach items="${companylist}" var="name">
-                                <option value="${name.companyName}"></option>
+                                <option value="${name.id}">${name.companyName}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -72,7 +73,7 @@
 
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <input type="text" name="userName" lay-verify="name" autocomplete="off" placeholder="邀请码"
+                        <input type="text" name="checkNumber" lay-verify="checknumber" autocomplete="off" placeholder="邀请码"
                                class="layui-input">
                     </div>
                 </div>
@@ -108,6 +109,37 @@
     layui.use(['form', 'jquery'], function () {
         var form = layui.form;
 
+        //用ajax进行注册及跳转
+        form.on("submit(demo1)",function (message) {
+
+            $.ajax({
+                url:"<%=request.getContextPath()%>/register",
+                type:"post",
+                contentType:'application/json; charset=utf-8',
+                data:JSON.stringify({
+                    number:message.field.userNumber,
+                    name:message.field.userName,
+                    companyid:message.field.companyName,
+                    psw:message.field.userPassword,
+                    checknum:message.field.checkNumber
+                }),
+                success:function (res) {
+                    if (res == "1"){
+                        setTimeout(function () {
+                            window.location.href="<%=request.getContextPath()%>/logins";
+                        },1000)
+                        layer.msg("注册成功，正在跳转登录界面");
+                        form.render();
+                    } else {
+                        layer.msg("邀请码错误，请核对公司与邀请码信息");
+                    }
+                }
+            })
+            return false;
+        });
+
+
+
         form.verify({
             number: function (value) {
                 if (value.length < 11) {
@@ -122,6 +154,11 @@
             , pass: function (value) {
                 if (value < 6) {
                     return "密码强度太低";
+                }
+            }
+            ,checknumber:function (value) {
+                if(value.length!=4){
+                    return "验证码格式不正确";
                 }
             }
             , regpass: function (value) {

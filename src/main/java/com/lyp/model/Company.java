@@ -2,11 +2,20 @@ package com.lyp.model;
 
 public class Company {
 
+    private Integer id;
     private String companyName;
     private String companyCheckNumber;
     private String companyProvince;
     private String companyCity;
     private String companyArea;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getCompanyName() {
         return companyName;
@@ -51,7 +60,8 @@ public class Company {
     @Override
     public String toString() {
         return "Company{" +
-                "companyName='" + companyName + '\'' +
+                "id=" + id +
+                ", companyName='" + companyName + '\'' +
                 ", companyCheckNumber='" + companyCheckNumber + '\'' +
                 ", companyProvince='" + companyProvince + '\'' +
                 ", companyCity='" + companyCity + '\'' +

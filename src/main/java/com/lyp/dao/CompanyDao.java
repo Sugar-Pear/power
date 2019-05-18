@@ -28,4 +28,8 @@ public interface CompanyDao {
     @Select("select * from company")
     List<Company> selectAllCompany();
 
+    //搜索邀请码
+    @Select("select companyCheckNumber from company where id=#{id}")
+    String selectCheckNumById(Integer id);
+
 }

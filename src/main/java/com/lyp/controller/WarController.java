@@ -219,7 +219,7 @@ public class WarController {
     @RequestMapping(value = "/test1")
     public void test1() throws IOException {
         //D:\studysoft\pythonPro\picture\DemoPicture.py
-        String[] arg = new String[]{"python","D:\\studysoft\\pythonPro\\picture\\DemoPicture.py"};
+        String[] arg = new String[]{"python","D:\\studysoft\\pythonPro\\picture\\DemoPicture.py",""};
         RunPythonWav.getPython(arg);
     }
 

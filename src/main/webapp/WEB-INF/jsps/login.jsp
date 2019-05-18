@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="css/amazeui.min.css" />
     <link rel="stylesheet" href="css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="layui/css/layui.css"/>
     <script src="js/jquery.min.js"></script>
 
 </head>
@@ -46,19 +47,27 @@
     <div class="tpl-login">
         <div class="tpl-login-content">
             <div class="tpl-login-logo"></div>
+            <div class="tpl-login-title" style="padding-bottom: 10px;">用户登录</div>
 
-            <form class="am-form tpl-form-line-form" action="login" method="post">
+            <div>
+                <span style="color: #2bb8c4">没有账号，请<a href="toregister" style="color: #9956b5">注册</a></span>
+            </div>
+            <form class="layui-form" action="login" method="post">
 
-                <div class="am-form-group">
-                    <input type="text" class="tpl-form-input" id="user-number" name="userNumber" placeholder="请输入编号">
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <input type="text" name="userNumber1" lay-verify="number" autocomplete="off" placeholder="编号" class="layui-input">
+                    </div>
                 </div>
-
-                <div class="am-form-group">
-                    <input type="password" class="tpl-form-input" id="user-password" name="userPassword" placeholder="请输入密码">
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <input type="text" name="userPassword" id="pass" lay-verify="pass" autocomplete="off"
+                               placeholder="输入密码" class="layui-input">
+                    </div>
                 </div>
-                <div class="am-form-group">
-                    <button type="submit" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">登录</button><br>
-                    <a href="toregister"><button type="button" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">注册</button></a>
+                <div class="layui-input-block">
+                    <button class="layui-btn" type="submit" lay-submit="" lay-filter="demo1">立即登录</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </form>
         </div>
@@ -66,5 +75,49 @@
 </div>
 <script src="js/amazeui.min.js"></script>
 <script src="js/app.js"></script>
+<script src="layui/layui.js"></script>
+<script>
+    layui.use(['form', 'jquery'], function () {
+        var form = layui.form;
+
+        form.on("submit(demo1)",function (message) {
+           $.ajax({
+               url:"<%=request.getContextPath()%>/login",
+               type:"post",
+               contentType:'application/json; charset=utf-8',
+               data:JSON.stringify({
+                    number:message.field.userNumber1,
+                   pass:message.field.userPassword
+               }),
+               success:function (res) {
+                   if(res == "1"){
+                       setTimeout(function () {
+                           window.location.href="<%=request.getContextPath()%>/index";
+                       },1000)
+                       layer.msg("登录成功，请等待...");
+                   }else{
+                       layer.msg("用户名或密码错误");
+                       window.location.reload();
+                   }
+               }
+           });
+            return false;
+        });
+
+        form.verify({
+            number:function (value) {
+                if(value.length<0){
+                    return "用户编号不为空";
+                }
+            }
+            ,pass:function (value) {
+                if (value.length<0){
+                    return "密码不为空";
+                }
+            }
+        });
+
+    });
+</script>
 </body>
 </html>

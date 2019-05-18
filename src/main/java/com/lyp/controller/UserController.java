@@ -28,27 +28,47 @@ public class UserController {
     private CompanyService companyService;
 
     @RequestMapping(value = "/logins")
-    public String loginView() {
+    public String loginView(HttpServletRequest request) {
+
+        request.getSession().setAttribute("login",1);
         return "login";
     }
 
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(ModelAndView modelAndView, HttpSession session, @RequestParam(value = "userNumber") String userNumber,
-                              @RequestParam(value = "userPassword") String userPassword) {
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public ModelAndView login(ModelAndView modelAndView, HttpSession session, @RequestParam(value = "userNumber") String userNumber,
+//                              @RequestParam(value = "userPassword") String userPassword) {
+//
+//        //登陆成功
+//        if (userService.getUserBySubmit(userNumber, userPassword) != null) {
+//            User user = userService.getuserByNum(userNumber);
+//            session.setAttribute("user", user);
+//            //modelAndView.addObject("a",user.getUserName());
+//            modelAndView.setViewName("index");
+//        } else
+//            modelAndView.setViewName("login");
+//        return modelAndView;
+//    }
 
-        //登陆成功
-        if (userService.getUserBySubmit(userNumber, userPassword) != null) {
+    //登录
+    @ResponseBody
+    @RequestMapping(value = "/login")
+    public String login(@RequestBody HashMap<String,Object> map,HttpSession session){
+        String userNumber = (String) map.get("number");
+        String userPassword = (String) map.get("pass");
+        System.out.println("登陆临沂临沂临沂林忆莲林忆莲原来"+userNumber);
+
+
+
+        if (userService.getUserBySubmit(userNumber,userPassword) !=null){
             User user = userService.getuserByNum(userNumber);
-            session.setAttribute("user", user);
-            //modelAndView.addObject("a",user.getUserName());
-            modelAndView.setViewName("index");
-        } else
-            modelAndView.setViewName("login");
-        return modelAndView;
+            session.setAttribute("user",user);
+            return "1";
+        }
+        return "2";
     }
 
-    @RequestMapping(value = "toregister")
+    @RequestMapping(value = "/toregister")
     public String toregister(HttpServletRequest request) {
         List<Company> list = companyService.selectAllCompany();
         request.setAttribute("companylist",list);
@@ -59,26 +79,35 @@ public class UserController {
         return "register";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView register(ModelAndView modelAndView, @RequestParam(value = "userNumber") String userNumber,
-                                 @RequestParam(value = "userName") String userName,
-                                 @RequestParam(value = "userPassword") String userPassword,
-                                 @RequestParam(value = "userPassword1") String userPassword1) {
-        if (userService.getuserByNum(userNumber) != null) {
-            modelAndView.setViewName("toregister");
-        } else {
-            User user = new User();
-            user.setUserNumber(userNumber);
-            user.setUserName(userName);
-            user.setUserPassword(userPassword);
+
+    //注册实现
+    @RequestMapping(value = "/register")
+    @ResponseBody
+    public String register(@RequestBody HashMap<String,Object> map){
+
+        String userNumber = (String) map.get("number");
+        System.out.println("注册妈妈妈妈"+userNumber);
+        String userName = (String) map.get("name");
+        String companyNumber = (String) map.get("companyid");
+        String userPassword = (String) map.get("psw");
+        String companyCheckNumber = (String) map.get("checlnum");
+        Integer id = Integer.parseInt(companyNumber);
+        String checkNum = companyService.selectCheckNumById(id);
+        String img = "user01.png";
+
+        User user = new User();
+        user.setUserNumber(userNumber);
+        user.setUserName(userName);
+        user.setUserPassword(userPassword);
+        user.setCompanyNumber(id);
+        user.setUserImg(img);
+
+        if(companyCheckNumber == checkNum){
+
             userService.register(user);
-            if (userService.getuserByNum(userNumber) != null) {
-                modelAndView.setViewName("login");
-            } else {
-                modelAndView.setViewName("register");
-            }
+            return "1";
         }
-        return modelAndView;
+        return "2";
     }
 
     @RequestMapping(value = "/index")

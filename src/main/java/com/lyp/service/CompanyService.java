@@ -10,5 +10,6 @@ public interface CompanyService {
     boolean deleteCompanyByName(String companyName);
     boolean updateCompany(String companyProvince,String companyCity,String companyArea);
     List<Company> selectAllCompany();
+    String selectCheckNumById(Integer id);
 
 }

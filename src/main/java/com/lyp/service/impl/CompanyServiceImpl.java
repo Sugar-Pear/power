@@ -35,4 +35,9 @@ public class CompanyServiceImpl implements CompanyService {
         List<Company> list = companyDao.selectAllCompany();
         return list;
     }
+
+    @Override
+    public String selectCheckNumById(Integer id) {
+        return companyDao.selectCheckNumById(id);
+    }
 }

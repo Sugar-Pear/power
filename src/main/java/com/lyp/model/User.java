@@ -12,6 +12,7 @@ public class User {
     private String  userCity;
     private String userArea;
     private String userImg;
+    private Integer companyNumber;
 
     public String getUserNumber() {
         return userNumber;
@@ -101,13 +102,21 @@ public class User {
         this.userImg = userImg;
     }
 
+    public Integer getCompanyNumber() {
+        return companyNumber;
+    }
+
+    public void setCompanyNumber(Integer companyNumber) {
+        this.companyNumber = companyNumber;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "userNumber='" + userNumber + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userPhone='" + userPhone + '\'' +
-                ", userType=" + userType +
+                ", userType='" + userType + '\'' +
                 ", userAge=" + userAge +
                 ", userPassword='" + userPassword + '\'' +
                 ", userBirthday='" + userBirthday + '\'' +
@@ -115,6 +124,7 @@ public class User {
                 ", userCity='" + userCity + '\'' +
                 ", userArea='" + userArea + '\'' +
                 ", userImg='" + userImg + '\'' +
+                ", companyNumber=" + companyNumber +
                 '}';
     }
 }
